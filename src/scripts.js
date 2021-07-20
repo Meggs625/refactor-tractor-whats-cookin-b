@@ -66,15 +66,15 @@ function createCards() {
 function addToDom(recipeInfo, shortRecipeName) {
   let cardHtml = `
     <div class="recipe-card" id=${recipeInfo.id}>
-      <h3 maxlength="40">${shortRecipeName}</h3>
+      <h4 maxlength="40">${shortRecipeName}</h4>
       <div class="card-photo-container">
-        <img src=${recipeInfo.image} class="card-photo-preview" alt="${recipeInfo.name} recipe" title="${recipeInfo.name} recipe">
+        <img src=${recipeInfo.image} class="card-photo-preview" title="${recipeInfo.name} recipe">
         <div class="text">
           <div>Click for Instructions</div>
         </div>
       </div>
       <h4>${recipeInfo.tags[0]}</h4>
-      <img src="./images/apple-logo-outline.png" alt="unfilled apple icon" class="card-apple-icon">
+      <img src="./images/apple-logo-outline.png" class="card-apple-icon">
     </div>`
   main.insertAdjacentHTML("beforeend", cardHtml);
 }
@@ -95,8 +95,7 @@ function findTags() {
 
 function listTags(allTags) {
   allTags.forEach(tag => {
-    let tagHtml = `<li><input type="checkbox" class="checked-tag" id="${tag}">
-      <label for="${tag}">${capitalize(tag)}</label></li>`;
+    let tagHtml = `<li><input type="checkbox" class="checked-tag" id="${tag}"></li>`;
     tagList.insertAdjacentHTML("beforeend", tagHtml);
   });
 }
@@ -202,8 +201,8 @@ function openRecipeInfo(event) {
 function generateRecipeTitle(recipe, ingredients) {
   let recipeTitle = `
     <button id="exit-recipe-btn">X</button>
-    <h3 id="recipe-title">${recipe.name}</h3>
-    <h4>Ingredients</h4>
+    <h4 id="recipe-title">${recipe.name}</h4>
+    <h3>Ingredients</h3>
     <p>${ingredients}</p>`
   fullRecipeInfo.insertAdjacentHTML("beforeend", recipeTitle);
 }
@@ -315,8 +314,7 @@ function findPantryInfo() {
 
 function displayPantryInfo(pantry) {
   pantry.forEach(ingredient => {
-    let ingredientHtml = `<li><input type="checkbox" class="pantry-checkbox" id="${ingredient.name}">
-      <label for="${ingredient.name}">${ingredient.name}, ${ingredient.count}</label></li>`;
+    let ingredientHtml = `<li><input type="checkbox" class="pantry-checkbox" id="${ingredient.name}"></li>`;
     document.querySelector(".pantry-list").insertAdjacentHTML("beforeend",
       ingredientHtml);
   });

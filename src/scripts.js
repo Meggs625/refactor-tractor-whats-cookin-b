@@ -1,30 +1,37 @@
+// import data
 import users from './data/users-data';
 import recipeData from  './data/recipe-data';
 import ingredientsData from './data/ingredient-data';
 
+// import css
 import './css/base.scss';
 import './css/styles.scss';
 
+// import Class
 import User from './user';
 import Recipe from './recipe';
 
+// query selectors (move to domUpdates)
 let allRecipesBtn = document.querySelector(".show-all-btn");
 let filterBtn = document.querySelector(".filter-btn");
 let fullRecipeInfo = document.querySelector(".recipe-instructions");
 let main = document.querySelector("main");
-let menuOpen = false;
 let pantryBtn = document.querySelector(".my-pantry-btn");
-let pantryInfo = [];
-let recipes = [];
 let savedRecipesBtn = document.querySelector(".saved-recipes-btn");
 let searchBtn = document.querySelector(".search-btn");
 let searchForm = document.querySelector("#search");
 let searchInput = document.querySelector("#search-input");
 let showPantryRecipes = document.querySelector(".show-pantry-recipes-btn");
 let tagList = document.querySelector(".tag-list");
+
+//global variables (fit in functions?)
+let pantryInfo = [];
+let menuOpen = false;
+let recipes = [];
 let user;
 
-
+// event listeners 
+// 3 event listeners for window load?
 window.addEventListener("load", createCards);
 window.addEventListener("load", findTags);
 window.addEventListener("load", generateUser);
@@ -38,6 +45,8 @@ showPantryRecipes.addEventListener("click", findCheckedPantryBoxes);
 searchForm.addEventListener("submit", pressEnterSearch);
 
 // GENERATE A USER ON LOAD
+// generates random user, gets name and renders first name to dom
+// 2 functions, 51-52 stay, rest move to dom, 59 move to general window load function
 function generateUser() {
   user = new User(users[Math.floor(Math.random() * users.length)]);
   let firstName = user.name.split(" ")[0];
@@ -51,6 +60,9 @@ function generateUser() {
 }
 
 // CREATE RECIPE CARDS
+// refactor shortrecipe name to a wrap to show full name
+// potentially broken down to 2 functions
+// stays here, but move to helper function area
 function createCards() {
   recipeData.forEach(recipe => {
     let recipeInfo = new Recipe(recipe);
@@ -63,6 +75,7 @@ function createCards() {
   });
 }
 
+// Move to dom file
 function addToDom(recipeInfo, shortRecipeName) {
   let cardHtml = `
     <div class="recipe-card" id=${recipeInfo.id}>
@@ -79,7 +92,7 @@ function addToDom(recipeInfo, shortRecipeName) {
   main.insertAdjacentHTML("beforeend", cardHtml);
 }
 
-// FILTER BY RECIPE TAGS
+// FILTER BY RECIPE TAGS - MOVE TO RecipeRepository.js
 function findTags() {
   let tags = [];
   recipeData.forEach(recipe => {
@@ -93,6 +106,7 @@ function findTags() {
   listTags(tags);
 }
 
+// move to domUpdate
 function listTags(allTags) {
   allTags.forEach(tag => {
     let tagHtml = `<li><input type="checkbox" class="checked-tag" id="${tag}"></li>`;
@@ -100,12 +114,15 @@ function listTags(allTags) {
   });
 }
 
+// Just for ingredients? need to be own seperate function?
 function capitalize(words) {
   return words.split(" ").map(word => {
     return word.charAt(0).toUpperCase() + word.slice(1);
   }).join(" ");
 }
 
+// FILTER TAGGED RECIPES
+// this works.. 
 function findCheckedBoxes() {
   let tagCheckboxes = document.querySelectorAll(".checked-tag");
   let checkboxInfo = Array.from(tagCheckboxes)
@@ -139,7 +156,7 @@ function filterRecipes(filtered) {
   });
   hideUnselectedRecipes(foundRecipes)
 }
-
+// move to domUpdates, should be in css
 function hideUnselectedRecipes(foundRecipes) {
   foundRecipes.forEach(recipe => {
     let domRecipe = document.getElementById(`${recipe.id}`);
@@ -148,6 +165,8 @@ function hideUnselectedRecipes(foundRecipes) {
 }
 
 // FAVORITE RECIPE FUNCTIONALITY
+// pass event into this function
+// serperate into different functions
 function addToMyRecipes() {
   if (event.target.className === "card-apple-icon") {
     let cardId = parseInt(event.target.closest(".recipe-card").id)
@@ -155,16 +174,17 @@ function addToMyRecipes() {
       event.target.src = "../images/apple-logo.png";
       user.saveRecipe(cardId);
     } else {
-      event.target.src = "../images/apple-logo-outline.png";
+      event.target.src = "../image-logo-es/apploutline.png";
       user.removeRecipe(cardId);
     }
   } else if (event.target.id === "exit-recipe-btn") {
+    // serperate function
     exitRecipe();
   } else if (isDescendant(event.target.closest(".recipe-card"), event.target)) {
     openRecipeInfo(event);
   }
 }
-
+// is this needed? better way to target openRecipeInfo()?
 function isDescendant(parent, child) {
   let node = child;
   while (node !== null) {
@@ -176,6 +196,8 @@ function isDescendant(parent, child) {
   return false;
 }
 
+// maybe 2 functions - showSaved hideSaved etc
+// def refactor
 function showSavedRecipes() {
   let unsavedRecipes = recipes.filter(recipe => {
     return !user.favoriteRecipes.includes(recipe.id);
@@ -187,7 +209,7 @@ function showSavedRecipes() {
   showMyRecipesBanner();
 }
 
-// CREATE RECIPE INSTRUCTIONS
+// CREATE RECIPE INSTRUCTIONS - move to domUpdates
 function openRecipeInfo(event) {
   fullRecipeInfo.style.display = "inline";
   let recipeId = event.path.find(e => e.id).id;
@@ -197,7 +219,7 @@ function openRecipeInfo(event) {
   generateInstructions(recipe);
   fullRecipeInfo.insertAdjacentHTML("beforebegin", "<section id='overlay'></div>");
 }
-
+// move to domUpdates
 function generateRecipeTitle(recipe, ingredients) {
   let recipeTitle = `
     <button id="exit-recipe-btn">X</button>
@@ -216,7 +238,7 @@ function generateIngredients(recipe) {
     return `${capitalize(i.name)} (${i.quantity.amount} ${i.quantity.unit})`
   }).join(", ");
 }
-
+// move to domUpdates
 function generateInstructions(recipe) {
   let instructionsList = "";
   let instructions = recipe.instructions.map(i => {
@@ -236,7 +258,7 @@ function exitRecipe() {
   document.getElementById("overlay").remove();
 }
 
-// TOGGLE DISPLAYS
+// TOGGLE DISPLAYS - show/hide (show/hide hidden class)
 function showMyRecipesBanner() {
   document.querySelector(".welcome-msg").style.display = "none";
   document.querySelector(".my-recipes-banner").style.display = "block";
@@ -273,7 +295,7 @@ function createRecipeObject(recipes) {
   recipes = recipes.map(recipe => new Recipe(recipe));
   return recipes
 }
-
+// This is pantry
 function toggleMenu() {
   var menuDropdown = document.querySelector(".drop-menu");
   menuOpen = !menuOpen;
@@ -293,6 +315,8 @@ function showAllRecipes() {
 }
 
 // CREATE AND USE PANTRY
+// Split into seperate functions? 
+// Goes inside Pantry Class?
 function findPantryInfo() {
   user.pantry.forEach(item => {
     let itemInfo = ingredientsData.find(ingredient => {
@@ -311,15 +335,16 @@ function findPantryInfo() {
   });
   displayPantryInfo(pantryInfo.sort((a, b) => a.name.localeCompare(b.name)));
 }
-
+//add ingredient.name inside <li> when you're ready and add to domUpdates
 function displayPantryInfo(pantry) {
   pantry.forEach(ingredient => {
-    let ingredientHtml = `<li><input type="checkbox" class="pantry-checkbox" id="${ingredient.name}"></li>`;
+    let ingredientHtml = `<li><input type="checkbox" class="pantry-checkbox" id="${ingredient.name}">${ingredient.name}</li>`;
     document.querySelector(".pantry-list").insertAdjacentHTML("beforeend",
       ingredientHtml);
   });
 }
-
+// does this belong in a Class?
+// if this is data manipulation, does it belong in a Class with a method that filters/etc?
 function findCheckedPantryBoxes() {
   let pantryCheckboxes = document.querySelectorAll(".pantry-checkbox");
   let pantryCheckboxInfo = Array.from(pantryCheckboxes)
@@ -331,7 +356,7 @@ function findCheckedPantryBoxes() {
     findRecipesWithCheckedIngredients(selectedIngredients);
   }
 }
-
+// this should maybe be in the RecipeRepository Class, but already there with filter by tag/recipe/name?
 function findRecipesWithCheckedIngredients(selected) {
   let recipeChecker = (arr, target) => target.every(v => arr.includes(v));
   let ingredientNames = selected.map(item => {

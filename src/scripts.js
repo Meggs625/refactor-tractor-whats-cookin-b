@@ -209,7 +209,7 @@ function showSavedRecipes() {
   showMyRecipesBanner();
 }
 
-// CREATE RECIPE INSTRUCTIONS
+// CREATE RECIPE INSTRUCTIONS - move to domUpdates
 function openRecipeInfo(event) {
   fullRecipeInfo.style.display = "inline";
   let recipeId = event.path.find(e => e.id).id;
@@ -238,7 +238,7 @@ function generateIngredients(recipe) {
     return `${capitalize(i.name)} (${i.quantity.amount} ${i.quantity.unit})`
   }).join(", ");
 }
-
+// move to domUpdates
 function generateInstructions(recipe) {
   let instructionsList = "";
   let instructions = recipe.instructions.map(i => {
@@ -258,7 +258,7 @@ function exitRecipe() {
   document.getElementById("overlay").remove();
 }
 
-// TOGGLE DISPLAYS
+// TOGGLE DISPLAYS - show/hide (show/hide hidden class)
 function showMyRecipesBanner() {
   document.querySelector(".welcome-msg").style.display = "none";
   document.querySelector(".my-recipes-banner").style.display = "block";
@@ -295,7 +295,7 @@ function createRecipeObject(recipes) {
   recipes = recipes.map(recipe => new Recipe(recipe));
   return recipes
 }
-
+// This is pantry
 function toggleMenu() {
   var menuDropdown = document.querySelector(".drop-menu");
   menuOpen = !menuOpen;
@@ -333,7 +333,7 @@ function findPantryInfo() {
   });
   displayPantryInfo(pantryInfo.sort((a, b) => a.name.localeCompare(b.name)));
 }
-
+//add ingredient.name inside <li> when you're ready
 function displayPantryInfo(pantry) {
   pantry.forEach(ingredient => {
     let ingredientHtml = `<li><input type="checkbox" class="pantry-checkbox" id="${ingredient.name}"></li>`;

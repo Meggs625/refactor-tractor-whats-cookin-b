@@ -315,6 +315,8 @@ function showAllRecipes() {
 }
 
 // CREATE AND USE PANTRY
+// Split into seperate functions? 
+// Goes inside Pantry Class?
 function findPantryInfo() {
   user.pantry.forEach(item => {
     let itemInfo = ingredientsData.find(ingredient => {
@@ -333,15 +335,16 @@ function findPantryInfo() {
   });
   displayPantryInfo(pantryInfo.sort((a, b) => a.name.localeCompare(b.name)));
 }
-//add ingredient.name inside <li> when you're ready
+//add ingredient.name inside <li> when you're ready and add to domUpdates
 function displayPantryInfo(pantry) {
   pantry.forEach(ingredient => {
-    let ingredientHtml = `<li><input type="checkbox" class="pantry-checkbox" id="${ingredient.name}"></li>`;
+    let ingredientHtml = `<li><input type="checkbox" class="pantry-checkbox" id="${ingredient.name}">${ingredient.name}</li>`;
     document.querySelector(".pantry-list").insertAdjacentHTML("beforeend",
       ingredientHtml);
   });
 }
-
+// does this belong in a Class?
+// if this is data manipulation, does it belong in a Class with a method that filters/etc?
 function findCheckedPantryBoxes() {
   let pantryCheckboxes = document.querySelectorAll(".pantry-checkbox");
   let pantryCheckboxInfo = Array.from(pantryCheckboxes)
@@ -353,7 +356,7 @@ function findCheckedPantryBoxes() {
     findRecipesWithCheckedIngredients(selectedIngredients);
   }
 }
-
+// this should maybe be in the RecipeRepository Class, but already there with filter by tag/recipe/name?
 function findRecipesWithCheckedIngredients(selected) {
   let recipeChecker = (arr, target) => target.every(v => arr.includes(v));
   let ingredientNames = selected.map(item => {

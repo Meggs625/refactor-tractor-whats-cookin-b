@@ -31,6 +31,7 @@ let recipes = [];
 let user;
 
 // event listeners 
+// 3 event listeners for window load?
 window.addEventListener("load", createCards);
 window.addEventListener("load", findTags);
 window.addEventListener("load", generateUser);
@@ -44,6 +45,8 @@ showPantryRecipes.addEventListener("click", findCheckedPantryBoxes);
 searchForm.addEventListener("submit", pressEnterSearch);
 
 // GENERATE A USER ON LOAD
+// generates random user, gets name and renders first name to dom
+// 2 functions, 51-52 stay, rest move to dom, 59 move to general window load function
 function generateUser() {
   user = new User(users[Math.floor(Math.random() * users.length)]);
   let firstName = user.name.split(" ")[0];
@@ -57,6 +60,9 @@ function generateUser() {
 }
 
 // CREATE RECIPE CARDS
+// refactor shortrecipe name to a wrap to show full name
+// potentially broken down to 2 functions
+// stays here, but move to helper function area
 function createCards() {
   recipeData.forEach(recipe => {
     let recipeInfo = new Recipe(recipe);
@@ -69,6 +75,7 @@ function createCards() {
   });
 }
 
+// Move to dom file
 function addToDom(recipeInfo, shortRecipeName) {
   let cardHtml = `
     <div class="recipe-card" id=${recipeInfo.id}>
@@ -85,7 +92,7 @@ function addToDom(recipeInfo, shortRecipeName) {
   main.insertAdjacentHTML("beforeend", cardHtml);
 }
 
-// FILTER BY RECIPE TAGS
+// FILTER BY RECIPE TAGS - MOVE TO RecipeRepository.js
 function findTags() {
   let tags = [];
   recipeData.forEach(recipe => {
@@ -99,6 +106,7 @@ function findTags() {
   listTags(tags);
 }
 
+// move to domUpdate
 function listTags(allTags) {
   allTags.forEach(tag => {
     let tagHtml = `<li><input type="checkbox" class="checked-tag" id="${tag}"></li>`;
@@ -106,12 +114,15 @@ function listTags(allTags) {
   });
 }
 
+// Just for ingredients? need to be own seperate function?
 function capitalize(words) {
   return words.split(" ").map(word => {
     return word.charAt(0).toUpperCase() + word.slice(1);
   }).join(" ");
 }
 
+// FILTER TAGGED RECIPES
+// this works.. 
 function findCheckedBoxes() {
   let tagCheckboxes = document.querySelectorAll(".checked-tag");
   let checkboxInfo = Array.from(tagCheckboxes)
@@ -145,7 +156,7 @@ function filterRecipes(filtered) {
   });
   hideUnselectedRecipes(foundRecipes)
 }
-
+// move to domUpdates, should be in css
 function hideUnselectedRecipes(foundRecipes) {
   foundRecipes.forEach(recipe => {
     let domRecipe = document.getElementById(`${recipe.id}`);
@@ -154,6 +165,8 @@ function hideUnselectedRecipes(foundRecipes) {
 }
 
 // FAVORITE RECIPE FUNCTIONALITY
+// pass event into this function
+// serperate into different functions
 function addToMyRecipes() {
   if (event.target.className === "card-apple-icon") {
     let cardId = parseInt(event.target.closest(".recipe-card").id)
@@ -161,16 +174,17 @@ function addToMyRecipes() {
       event.target.src = "../images/apple-logo.png";
       user.saveRecipe(cardId);
     } else {
-      event.target.src = "../images/apple-logo-outline.png";
+      event.target.src = "../image-logo-es/apploutline.png";
       user.removeRecipe(cardId);
     }
   } else if (event.target.id === "exit-recipe-btn") {
+    // serperate function
     exitRecipe();
   } else if (isDescendant(event.target.closest(".recipe-card"), event.target)) {
     openRecipeInfo(event);
   }
 }
-
+// is this needed? better way to target openRecipeInfo()?
 function isDescendant(parent, child) {
   let node = child;
   while (node !== null) {
@@ -182,6 +196,8 @@ function isDescendant(parent, child) {
   return false;
 }
 
+// maybe 2 functions - showSaved hideSaved etc
+// def refactor
 function showSavedRecipes() {
   let unsavedRecipes = recipes.filter(recipe => {
     return !user.favoriteRecipes.includes(recipe.id);
@@ -203,7 +219,7 @@ function openRecipeInfo(event) {
   generateInstructions(recipe);
   fullRecipeInfo.insertAdjacentHTML("beforebegin", "<section id='overlay'></div>");
 }
-
+// move to domUpdates
 function generateRecipeTitle(recipe, ingredients) {
   let recipeTitle = `
     <button id="exit-recipe-btn">X</button>

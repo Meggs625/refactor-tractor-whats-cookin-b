@@ -7,17 +7,20 @@ class User {
 		this.recipesToCook = [];
 	}
 
-	saveRecipe(recipe) {
+	favoriteRecipe(recipe) {
 		this.favoriteRecipes.push(recipe);
+		// return this.favoriteRecipes
 	}
 
-	removeRecipe(recipe) {
+	removeFavoriteRecipe(recipe) {
 		let i = this.favoriteRecipes.indexOf(recipe);
 		this.favoriteRecipes.splice(i, 1);
+		// return this.favoriteRecipes
 	}
 
 	decideToCook(recipe) {
 		this.recipesToCook.push(recipe);
+		// return this.recipesToCook
 	}
 
 	filterRecipes(type) {

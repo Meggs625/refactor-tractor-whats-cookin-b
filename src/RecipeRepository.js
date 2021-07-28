@@ -36,6 +36,9 @@ class RecipeRepository {
     let filteredSearchResults = [];
     searchWords.forEach(word => {
       this.recipes.forEach(recipe => {
+        if (filteredSearchResults.includes(recipe)) {
+          return
+        }
         if (recipe.name.includes(word)) {
           return filteredSearchResults.push(recipe)
         } 

@@ -93,6 +93,8 @@ function addToDom(recipeInfo, shortRecipeName) {
 }
 
 // FILTER BY RECIPE TAGS - MOVE TO RecipeRepository.js
+// *** This was moved to RecipeRepo as method .findTags() that returns the sorted list of tags
+
 function findTags() {
   let tags = [];
   recipeData.forEach(recipe => {
@@ -109,7 +111,7 @@ function findTags() {
 // move to domUpdate
 function listTags(allTags) {
   allTags.forEach(tag => {
-    let tagHtml = `<li><input type="checkbox" class="checked-tag" id="${tag}"></li>`;
+    let tagHtml = `<li><input type="checkbox" class="checked-tag" id="${tag}">${tag}</li>`;
     tagList.insertAdjacentHTML("beforeend", tagHtml);
   });
 }
@@ -131,7 +133,7 @@ function findCheckedBoxes() {
   })
   findTaggedRecipes(selectedTags);
 }
-
+// Moved to RecipeRepo as method .filterTaggedRecipes
 function findTaggedRecipes(selected) {
   let filteredResults = [];
   selected.forEach(tag => {
@@ -149,13 +151,15 @@ function findTaggedRecipes(selected) {
     filterRecipes(filteredResults);
   }
 }
-
+// This filters the recipes that are not selected
 function filterRecipes(filtered) {
   let foundRecipes = recipes.filter(recipe => {
     return !filtered.includes(recipe);
   });
   hideUnselectedRecipes(foundRecipes)
 }
+
+
 // move to domUpdates, should be in css
 function hideUnselectedRecipes(foundRecipes) {
   foundRecipes.forEach(recipe => {

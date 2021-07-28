@@ -12,7 +12,7 @@ describe.only('RecipeRepository' , () => {
   })
 
   it('should be a function', () => {
-    expect(RecipeRepository).to.be.a.a('function');
+    expect(RecipeRepository).to.be.a('function');
   })
 
   it('should return recipe tags', () => {

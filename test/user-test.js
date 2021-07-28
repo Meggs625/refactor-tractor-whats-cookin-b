@@ -45,13 +45,13 @@ describe('User', () => {
 		expect(user.recipesToCook[0].name).to.equal('Chicken Parm');
 	});
 
-	it.skip('should be able to filter recipes by type', function () {
-		user.saveRecipe(recipe);
+	it('should be able to filter recipes by type', function () {
+		user.favoriteRecipe(recipe);
 		expect(user.filterRecipes('italian')).to.deep.equal([recipe]);
 	});
 
-	it.skip('should be able to search recipes by name', function () {
-		user.saveRecipe(recipe);
+	it('should be able to search recipes by name', function () {
+		user.favoriteRecipe(recipe);
 		expect(user.searchForRecipe('Chicken Parm')).to.deep.equal([recipe]);
 	});
 });

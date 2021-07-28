@@ -4,7 +4,7 @@ import User from '../src/user';
 import users from '../src/data/users-data.js';
 
 describe('User', () => {
-	let user, userInfo, recipe;
+	let user, recipe;
 
 	beforeEach(() => {
 		user = new User(users[0]);
@@ -31,16 +31,16 @@ describe('User', () => {
 		expect(user.favoriteRecipes).to.deep.equal([]);
 	});
 
-	it.skip('should initialize with an empty recipesToCook array', function () {
+	it('should initialize with an empty recipesToCook array', () => {
 		expect(user.recipesToCook).to.deep.equal([]);
 	});
 
-	it.skip('should be able to save a recipe to favoriteRecipes', function () {
-		user.saveRecipe(recipe);
+	it('should be able to save a recipe to favoriteRecipes', () => {
+		user.favoriteRecipe(recipe);
 		expect(user.favoriteRecipes[0].name).to.equal('Chicken Parm');
 	});
 
-	it.skip('should be able to decide to cook a recipe', function () {
+	it('should be able to decide to cook a recipe', function () {
 		user.decideToCook(recipe);
 		expect(user.recipesToCook[0].name).to.equal('Chicken Parm');
 	});

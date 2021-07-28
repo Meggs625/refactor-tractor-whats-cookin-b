@@ -4,6 +4,13 @@ class Ingredient {
     this.name = itemName;
     this.estimatedCostInCents = cost;
   }
+
+  // create method to return cost in dollars?
+  // create method to return ingredient name
+  // create method calculate total ingredient cost
+    //[pass in an id and quantity]
+    
+  
 }
 
 export default Ingredient;

@@ -93,23 +93,25 @@ function addToDom(recipeInfo, shortRecipeName) {
 }
 
 // FILTER BY RECIPE TAGS - MOVE TO RecipeRepository.js
-function findTags() {
-  let tags = [];
-  recipeData.forEach(recipe => {
-    recipe.tags.forEach(tag => {
-      if (!tags.includes(tag)) {
-        tags.push(tag);
-      }
-    });
-  });
-  tags.sort();
-  listTags(tags);
-}
+// *** This was moved to RecipeRepo as method .findTags() that returns the sorted list of tags
+
+// function findTags() {
+//   let tags = [];
+//   recipeData.forEach(recipe => {
+//     recipe.tags.forEach(tag => {
+//       if (!tags.includes(tag)) {
+//         tags.push(tag);
+//       }
+//     });
+//   });
+//   tags.sort();
+//   listTags(tags);
+// }
 
 // move to domUpdate
 function listTags(allTags) {
   allTags.forEach(tag => {
-    let tagHtml = `<li><input type="checkbox" class="checked-tag" id="${tag}"></li>`;
+    let tagHtml = `<li><input type="checkbox" class="checked-tag" id="${tag}">${tag}</li>`;
     tagList.insertAdjacentHTML("beforeend", tagHtml);
   });
 }
@@ -131,7 +133,7 @@ function findCheckedBoxes() {
   })
   findTaggedRecipes(selectedTags);
 }
-
+// Moved to RecipeRepo as method .filterTaggedRecipes
 function findTaggedRecipes(selected) {
   let filteredResults = [];
   selected.forEach(tag => {

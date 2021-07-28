@@ -29,8 +29,13 @@ describe.only('RecipeRepository' , () => {
       'starter']);
   })
 
-  it('')
+  it('should return recipes that include selected tags', () => {
+    expect(recipeRepository.findTaggedRecipes(['brunch']).length).to.equal(1)
+  })
 
+  it('should be able to search by name or ingredient', () => {
+    expect(recipeRepository.filterSearchRecipes(['Apple', 'Chip', 'Cookie', 'Dog']).length).to.equal(8);
+  })
 
 
 })

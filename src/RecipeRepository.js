@@ -20,7 +20,7 @@ class RecipeRepository {
     let filteredTagResults = [];
     selectedTags.forEach(tag => {
       let allRecipes = this.recipes.filter(recipe => {
-        return recipe.tags.includes(tag.id);
+        return recipe.tags.includes(tag);
       });
 
       allRecipes.forEach(recipe => {
@@ -32,6 +32,7 @@ class RecipeRepository {
    return filteredTagResults;
   }
 
+  //might need to add functionality to lowercase all names/search material
   filterSearchRecipes (searchWords) {
     let filteredSearchResults = [];
     searchWords.forEach(word => {

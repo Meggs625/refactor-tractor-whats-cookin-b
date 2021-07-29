@@ -1,7 +1,7 @@
 import {expect} from 'chai';
 import Pantry from '../src/Pantry';
 import samplePantryData from '../src/data/pantry-test-data';
-const currentRecipe = require('../src/data/recipe-test-data');
+import sampleRecipeData from '../src/data/recipe-test-data';
 
 describe('Pantry', () => {
   let userPantry;
@@ -22,9 +22,14 @@ describe('Pantry', () => {
     expect(userPantry.pantry).to.deep.equal(samplePantryData)
   })
 
-  it('should return the name of the ingredients currently in the pantry', () => {
-    const currentPantry = userPantry.returnCurrentPantry();
-    expect(currentPantry).to.deep.equal()
+  // it('should return the name of the ingredients currently in the pantry', () => {
+  //   const currentPantry = userPantry.returnCurrentPantry();
+  //   expect(currentPantry).to.deep.equal()
+  // })
+
+  it('should determine if it holds all necessary ingredients for a recipe', () => {
+    let canCook = userPantry.assessIfCanCookRecipe(sampleRecipeData) 
+    expect(canCook).to.equal(false);
   })
 
 })

@@ -321,11 +321,14 @@ function showAllRecipes() {
 // CREATE AND USE PANTRY
 // Split into seperate functions? 
 // Goes inside Pantry Class?
+
+//** Moved within the Pantry class - still need to build test to ensure functionality */
 function findPantryInfo() {
   user.pantry.forEach(item => {
     let itemInfo = ingredientsData.find(ingredient => {
       return ingredient.id === item.ingredient;
     });
+    debugger
     let originalIngredient = pantryInfo.find(ingredient => {
       if (itemInfo) {
         return ingredient.name === itemInfo.name;
@@ -339,6 +342,7 @@ function findPantryInfo() {
   });
   displayPantryInfo(pantryInfo.sort((a, b) => a.name.localeCompare(b.name)));
 }
+
 //add ingredient.name inside <li> when you're ready and add to domUpdates
 function displayPantryInfo(pantry) {
   pantry.forEach(ingredient => {

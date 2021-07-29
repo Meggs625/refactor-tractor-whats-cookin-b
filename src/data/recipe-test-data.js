@@ -40,14 +40,6 @@ const sampleRecipeData = [
     }
   },
   {
-    "name": "butter",
-    "id": 1001,
-    "quantity": {
-      "amount": 6,
-      "unit": "tablespoons"
-    }
-  },
-  {
     "name": "buttermilk",
     "id": 1230,
     "quantity": {

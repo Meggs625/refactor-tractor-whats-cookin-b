@@ -8,38 +8,46 @@ class Pantry {
   returnCurrentPantry() {
     let currentFoodItems = [];
     this.pantry.forEach(item => {
-      currentFoodItems.push(futureIngredientMethod(item.ingredient))
+      currentFoodItems.push(
+        {name: futureIngredientMethod(item.ingredient), 
+          amount: item.amount})
     });  
     return currentFoodItems;
     // need to build test for this when able to call the ingredient's method
   }
 
   assessIfCanCookRecipe(recipeData) {
-    this.pantry.filter(item => {
-      return recipeData.find(ingredient => {
-        ingredient.id === item.ingredient;
-      })
-    })
-    
+    const missingIngredients = [];
+    const haveIngredients = 
+      this.pantry.reduce((arr, item) => {
+        recipeData.forEach(ingredient => {
+          if (ingredient.id === item.ingredient && 
+          item.amount >= ingredient.quantity.amount) {
+            arr.push(item)
+          } else {
+            if (!missingIngredients.includes(ingredient.id)) {
+              const amountMissing = (ingredient.quantity.amount - item.amount);
+              this.shoppingList.push({
+                name: ingredient.name, 
+                id: ingredient.id, 
+                amount: amountMissing})
+              missingIngredients.push(ingredient.id)
+            }
+          }
+        })
+        return arr;
+      }, []);
+    return haveIngredients;      
   }
 
-  createShoppingList(recipeData) {
-    recipeData.forEach(item => {
-      if (!this.pantry.includes(ingredient.id)) {
-        this.shoppingList.push(
-          {name: ingredient.name, 
-            id: ingredient.id,
-            amount: ingredient.amount})
-      }
-    })
-  }
+  
+// CODE FROM THE SCRIPTS FILE THAT LOOKS TO BE PANTRY ORIENTED
 
   // findPantryInfo(ingredients) {
   //   this.pantry.forEach(item => 
   //     let itemInfo = ingredients.find(ingredient => {
   //       return ingredient.id === item.ingredient;
   //     });
-  //     //itemInfo = the matching ingredient object{id, name, estimcost}
   //     let originalIngredient = pantryInfo.find(ingredient => {
   //       if (itemInfo) {
   //         return ingredient.name === itemInfo.name;

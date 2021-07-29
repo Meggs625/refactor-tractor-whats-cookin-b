@@ -2,6 +2,7 @@ import {expect} from 'chai';
 import Pantry from '../src/Pantry';
 import samplePantryData from '../src/data/pantry-test-data';
 import sampleRecipeData from '../src/data/recipe-test-data';
+import sampleIngredientData from '../src/data/ingredient-test-data';
 
 describe('Pantry', () => {
   let userPantry;

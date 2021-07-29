@@ -3,7 +3,7 @@ import { expect } from 'chai';
 import Ingredient from '../src/Ingredient.js';
 import ingredientsData from '../src/data/ingredient-data.js';
 
-describe.only ('Ingredient', () => {
+describe ('Ingredient', () => {
   let ingredient, ingredient2;
   
   beforeEach(() => {

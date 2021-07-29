@@ -44,4 +44,4 @@ const samplePantryData = [
     "amount": 1
   }];
 
-  export default samplePantryData;
+export default samplePantryData;

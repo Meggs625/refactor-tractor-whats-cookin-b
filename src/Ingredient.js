@@ -5,22 +5,20 @@ class Ingredient {
     this.estimatedCostInCents = cost;
   }
 
-  returnIngredientName(id) {
+  returnIngredientName() {
     return this.name;
   }
 
-  updateCostToDollars(id) {
-    let dollarValue = Math.floor(this.estimatedCostInCents) / 100;
-    return dollarValue;
+  updateCostToDollars(id, cost) {
+    this.estimatedCostInCents = Math.floor(cost) / 100;
+    return this.estimatedCostInCents;
   }
 
   calculateTotalIngredientCost(id, quantity) {
-
+    let total = this.estimatedCostInCents * quantity;
+    return this.updateCostToDollars(id, total)
   }
-  // create method to return cost in dollars?
-  // create method to return ingredient name
-  // create method calculate total ingredient cost
-    //[pass in an id and quantity]
 }
+
 
 export default Ingredient;

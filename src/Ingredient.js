@@ -6,10 +6,12 @@ class Ingredient {
   }
 
   returnIngredientName(id) {
+    return this.name;
   }
 
   updateCostToDollars(id) {
-
+    let dollarValue = Math.floor(this.estimatedCostInCents) / 100;
+    return dollarValue;
   }
 
   calculateTotalIngredientCost(id, quantity) {

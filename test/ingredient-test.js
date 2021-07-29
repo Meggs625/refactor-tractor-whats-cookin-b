@@ -32,14 +32,14 @@ describe.only ('Ingredient', () => {
   });
   
   it('should have a way to return the ingredient name', () => {
-    expect(ingredient.returnIngredientName()).to.equal();
+    expect(ingredient.returnIngredientName(20081)).to.equal('wheat flour');
   });
 
   it('should have a way to return the cost in dollars', () => {
-    expect(ingredient.updateCostToDollars()).to.equal();
+    expect(ingredient.updateCostToDollars(20081)).to.equal(1.42);
   });
 
   it('should have a way to calculate the cost of an ingredient', () => {
-    expect(ingredient.calculateTotalIngredientCost()).to.equal();
+    expect(ingredient.calculateTotalIngredientCost(20081, 5)).to.equal(56);
   });
 });

@@ -2,7 +2,7 @@ import {expect} from 'chai';
 import Pantry from '../src/Pantry';
 import samplePantryData from '../src/data/pantry-test-data';
 import sampleRecipeData from '../src/data/recipe-test-data';
-import sampleIngredientData from '../src/data/ingredient-test-data';
+
 
 describe('Pantry', () => {
   let userPantry;
@@ -29,7 +29,7 @@ describe('Pantry', () => {
   // })
 
   it('should determine if it holds all necessary ingredients for a recipe', () => {
-    let cannotCook = userPantry.assessIfCanCookRecipe(sampleRecipeData) 
+    let cannotCook = userPantry.assessIngredients(sampleRecipeData) 
     expect(cannotCook).to.equal(false);
   })
 
@@ -58,7 +58,7 @@ describe('Pantry', () => {
         "unit": "clove"
       }
     }]
-    let canCook = userPantry.assessIfCanCookRecipe(recipe1);
+    let canCook = userPantry.assessIngredients(recipe1);
     expect(canCook).to.equal(true);
   })
 
@@ -87,23 +87,23 @@ describe('Pantry', () => {
         "unit": "clove"
       }
     }]
-    let goodToCook = userPantry.assessIfCanCookRecipe(recipe2);
+    userPantry.assessIngredients(recipe2);
     expect(userPantry.shoppingList).to.deep.equal([])
   })
 
   it('should add all missing ingredients to the shopping list', () => {
-    userPantry.assessIfCanCookRecipe(sampleRecipeData)
-    expect(userPantry.shoppingList.length).to.equal(11)
+    userPantry.assessIngredients(sampleRecipeData)
+    expect(userPantry.shoppingList.length).to.equal(8)
   })
 
   it('should store the ingredient name, id, and needed amount in the shopping list', () => {
-    userPantry.assessIfCanCookRecipe(sampleRecipeData)
+    userPantry.assessIngredients(sampleRecipeData)
     expect(userPantry.shoppingList[0]).to.deep.equal(
-      { name: 'all purpose flour', id: 20081, amount: 1 })
+      { name: 'baking powder', id: 18371, amount: 2 })
   }) 
 
-  it.only('should calculate exactly how much of an ingredient is missing', () => {
-    userPantry.assessIfCanCookRecipe(sampleRecipeData);
+  it('should calculate exactly how much of an ingredient is missing', () => {
+    userPantry.assessIngredients(sampleRecipeData);
     expect(userPantry.shoppingList[7].amount).to.deep.equal(9)
   })
 

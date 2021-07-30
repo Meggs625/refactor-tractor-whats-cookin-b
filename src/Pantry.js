@@ -1,3 +1,5 @@
+import IngredientRepository from '../IngredientRepository';
+
 class Pantry {
   constructor(userPantry) {
     this.pantry = userPantry;
@@ -9,7 +11,7 @@ class Pantry {
     let currentFoodItems = [];
     this.pantry.forEach(item => {
       currentFoodItems.push(
-        {name: futureIngredientMethod(item.ingredient), 
+        {name: IngredientReposity.returnIngredientName(item.ingredient), 
           amount: item.amount})
     });  
     return currentFoodItems;

@@ -32,10 +32,10 @@ describe('Ingredient', () => {
     expect(ingredient.cost).to.equal(142);
   });
   
-  it('should have a way to return the ingredient name', () => {
-    expect(ingredient.returnIngredientName(20081)).to.equal('wheat flour');
-    expect(ingredient2.returnIngredientName(12061)).to.equal('whole almonds');
-  });
+  // it('should have a way to return the ingredient name', () => {
+  //   expect(ingredient.returnIngredientName(20081)).to.equal('wheat flour');
+  //   expect(ingredient2.returnIngredientName(12061)).to.equal('whole almonds');
+  // });
 
   it('should have a way to return the cost in dollars', () => {
     expect(ingredient.updateCostToDollars(20081, 142)).to.equal(1.42);

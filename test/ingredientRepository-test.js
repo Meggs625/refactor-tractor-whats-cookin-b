@@ -7,7 +7,7 @@ describe('IngredientRepository', () => {
   
   beforeEach(() => {
     ingredientRepo = new IngredientRepository(ingredientsData);
-    ingredient = new IngredientRepository(ingredientsData[0])
+    ingredient = ingredientsData[0]
   });
   
   it('should be a function', () => {

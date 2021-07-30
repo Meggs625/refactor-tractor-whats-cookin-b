@@ -3,13 +3,13 @@ import Ingredient from '../src/Ingredient.js';
 import IngredientRepository from '../src/IngredientRepository.js';
 import ingredientsData from '../src/data/ingredient-data.js';
 
-describe.only('Ingredient', () => {
+describe('Ingredient', () => {
   let ingredientRepo, ingredient, ingredient2;
   
   beforeEach(() => {
     ingredientRepo = new IngredientRepository(ingredientsData);
-    ingredient = new Ingredient(20081, 'wheat flour', 142);
-    ingredient2 = new Ingredient(12061, 'whole almonds', 1029)
+    ingredient = new Ingredient(20081, 'wheat flour', 142, ingredientRepo);
+    ingredient2 = new Ingredient(12061, 'whole almonds', 1029, ingredientRepo)
   });
   
   it('should be a function', () => {

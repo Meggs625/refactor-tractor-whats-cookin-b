@@ -4,7 +4,7 @@ const expect = chai.expect;
 import RecipeRepository from '../src/RecipeRepository';
 import recipeData from '../src/data/recipe-data';
 
-describe.only('RecipeRepository' , () => {
+describe('RecipeRepository' , () => {
   let recipeRepository;
 
   beforeEach(() => {

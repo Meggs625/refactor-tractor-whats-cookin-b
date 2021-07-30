@@ -1,5 +1,3 @@
-import recipeData from "./data/recipe-data";
-
 class Pantry {
   constructor(userPantry) {
     this.pantry = userPantry;

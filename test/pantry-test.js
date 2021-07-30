@@ -29,8 +29,82 @@ describe('Pantry', () => {
   // })
 
   it('should determine if it holds all necessary ingredients for a recipe', () => {
-    let canCook = userPantry.assessIfCanCookRecipe(sampleRecipeData) 
-    expect(canCook).to.equal(false);
+    let cannotCook = userPantry.assessIfCanCookRecipe(sampleRecipeData) 
+    expect(cannotCook).to.equal(false);
+  })
+
+  it('should determine if a different recipe can be cooked', () => {
+    let recipe1 =  [{
+      "name": "fresh parsley",
+      "id": 11297,
+      "quantity": {
+        "amount": 0.25,
+        "unit": "cup"
+      }
+    },
+    {
+      "name": "kosher salt",
+      "id": 1082047,
+      "quantity": {
+        "amount": 0.25,
+        "unit": "teaspoon"
+      }
+    },
+    {
+      "name": "garlic",
+      "id": 11215,
+      "quantity": {
+        "amount": 1,
+        "unit": "clove"
+      }
+    }]
+    let canCook = userPantry.assessIfCanCookRecipe(recipe1);
+    expect(canCook).to.equal(true);
+  })
+
+  it('should not add anything to the shopping list if the recipe can be cooked', () => {
+    let recipe2 =  [{
+      "name": "fresh parsley",
+      "id": 11297,
+      "quantity": {
+        "amount": 0.25,
+        "unit": "cup"
+      }
+    },
+    {
+      "name": "kosher salt",
+      "id": 1082047,
+      "quantity": {
+        "amount": 0.25,
+        "unit": "teaspoon"
+      }
+    },
+    {
+      "name": "garlic",
+      "id": 11215,
+      "quantity": {
+        "amount": 1,
+        "unit": "clove"
+      }
+    }]
+    let goodToCook = userPantry.assessIfCanCookRecipe(recipe2);
+    expect(userPantry.shoppingList).to.deep.equal([])
+  })
+
+  it('should add all missing ingredients to the shopping list', () => {
+    userPantry.assessIfCanCookRecipe(sampleRecipeData)
+    expect(userPantry.shoppingList.length).to.equal(11)
+  })
+
+  it('should store the ingredient name, id, and needed amount in the shopping list', () => {
+    userPantry.assessIfCanCookRecipe(sampleRecipeData)
+    expect(userPantry.shoppingList[0]).to.deep.equal(
+      { name: 'all purpose flour', id: 20081, amount: 1 })
+  }) 
+
+  it.only('should calculate exactly how much of an ingredient is missing', () => {
+    userPantry.assessIfCanCookRecipe(sampleRecipeData);
+    expect(userPantry.shoppingList[7].amount).to.deep.equal(9)
   })
 
 })

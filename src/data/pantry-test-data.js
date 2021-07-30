@@ -46,6 +46,10 @@ const samplePantryData = [
   {
     "ingredient": 1001,
     "amount": 4
+  },
+  {
+    "ingredient": 19296,
+    "amount": 3
   }];
 
 export default samplePantryData;

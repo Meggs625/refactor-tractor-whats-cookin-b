@@ -3,11 +3,11 @@ import Ingredient from '../src/Ingredient.js';
 import IngredientRepository from '../src/IngredientRepository.js';
 import ingredientsData from '../src/data/ingredient-data.js';
 
-describe('Ingredient', () => {
+describe.only('Ingredient', () => {
   let ingredientRepo, ingredient, ingredient2;
   
   beforeEach(() => {
-    ingredientRepo = new Ingredient(ingredientsData);
+    ingredientRepo = new IngredientRepository(ingredientsData);
     ingredient = new Ingredient(20081, 'wheat flour', 142);
     ingredient2 = new Ingredient(12061, 'whole almonds', 1029)
   });
@@ -31,11 +31,6 @@ describe('Ingredient', () => {
   it('should store an ingredient cost', () => {
     expect(ingredient.cost).to.equal(142);
   });
-  
-  // it('should have a way to return the ingredient name', () => {
-  //   expect(ingredient.returnIngredientName(20081)).to.equal('wheat flour');
-  //   expect(ingredient2.returnIngredientName(12061)).to.equal('whole almonds');
-  // });
 
   it('should have a way to return the cost in dollars', () => {
     expect(ingredient.updateCostToDollars(20081, 142)).to.equal(1.42);

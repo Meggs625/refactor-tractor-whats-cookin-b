@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import IngredientRepository from '../src/IngredientRepository.js';
 import ingredientsData from '../src/data/ingredient-data.js';
 
-describe.only('IngredientRepository', () => {
+describe('IngredientRepository', () => {
   let ingredientRepo, ingredient;
   
   beforeEach(() => {

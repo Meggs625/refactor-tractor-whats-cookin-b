@@ -3,13 +3,9 @@ class Ingredient {
     this.id = id;
     this.name = name;
     this.cost = cost;
-    this.ingredientsRepo = data;
+    this.data = data;
   }
-
-  // returnIngredientName(id) {
-  //   return this.name;
-  // }
-
+  
   updateCostToDollars(id, cost) {
     this.cost = Math.floor(cost) / 100;
     return this.cost;

@@ -11,6 +11,7 @@ import './css/styles.scss';
 // import Class
 import User from './user';
 import Recipe from './recipe';
+import RecipeRepository from './RecipeRepository';
 
 // query selectors (move to domUpdates)
 let allRecipesBtn = document.querySelector(".show-all-btn");
@@ -37,11 +38,14 @@ let user;
 
 // event listeners 
 // 3 event listeners for window load?
-window.addEventListener("load", createCards);
-window.addEventListener("load", findTags);
-window.addEventListener("load", generateUser);
+// window.addEventListener("load", createCards);
+// window.addEventListener("load", findTags);
+// window.addEventListener("load", generateUser);
 allRecipesBtn.addEventListener("click", showAllRecipes);
-filterBtn.addEventListener("click", findCheckedBoxes);
+
+// filterBtn.addEventListener("click", findCheckedBoxes);
+filterBtn.addEventListener("click", getUpdatedQuantity);
+
 main.addEventListener("click", addToMyRecipes);
 pantryBtn.addEventListener("click", toggleMenu);
 savedRecipesBtn.addEventListener("click", showSavedRecipes);
@@ -57,13 +61,59 @@ function gatherData() {
   Promise.all([getData('users'), getData('ingredients'),
     getData('recipes')])
     .then(data => {
-      const allUsers = data[0].usersData;
-      const allIngredients = data[1].ingredientsData;
-      const allRecipes = data[2].recipeData;
-      generateUser(allUsers);
-      createCards(allRecipes);
+      generateUserData(data[0]);
+      generateIngredientData(data[1]);
+      generateRecipeData(data[2])
+      // const allUsers = data[0].usersData;
+      // const allIngredients = data[1].ingredientsData;
+      // const allRecipes = data[2].recipeData;
+      // generateUser(allUsers);
+      // createCards(allRecipes);
     })
 }
+
+
+
+function generateUserData(data) {
+  generateUser(data);
+}
+
+function generateIngredientData(data) {
+
+}
+
+function generateRecipeData(data) {
+  const recipeRepo = new RecipeRepository(data);
+  createCards(recipeRepo.recipes);
+  listTags(recipeRepo.findRecipeTags())
+
+  // console.log(recipeRepo.findRecipeTags());
+  // console.log('recipe func: ', recipeRepo);
+}
+
+function getUpdatedQuantity() {
+  let updatedQuantity = {
+    userID: 1, 
+    ingredientID: 11477, 
+    ingredientModification: -19
+}
+updateIngredientQuantity(updatedQuantity)
+}
+
+function updateIngredientQuantity(qty) {
+  fetch('http://localhost:3001/api/v1/users', {
+    method: 'POST',
+    body: JSON.stringify(qty),
+    headers: {'Content-Type': 'application/json'}
+  })
+  .then(response => response.json())
+  .then(json => console.log(json))
+  .catch(err => console.log(err))
+}
+
+
+
+
 // GENERATE A USER ON LOAD
 // generates random user, gets name and renders first name to dom
 // 2 functions, 51-52 stay, rest move to dom, 59 move to general window load function
@@ -115,18 +165,18 @@ function addToDom(recipeInfo, shortRecipeName) {
 // FILTER BY RECIPE TAGS - MOVE TO RecipeRepository.js
 // *** This was moved to RecipeRepo as method .findTags() that returns the sorted list of tags
 
-function findTags() {
-  let tags = [];
-  recipeData.forEach(recipe => {
-    recipe.tags.forEach(tag => {
-      if (!tags.includes(tag)) {
-        tags.push(tag);
-      }
-    });
-  });
-  tags.sort();
-  listTags(tags);
-}
+// function findTags() {
+//   let tags = [];
+//   recipeData.forEach(recipe => {
+//     recipe.tags.forEach(tag => {
+//       if (!tags.includes(tag)) {
+//         tags.push(tag);
+//       }
+//     });
+//   });
+//   tags.sort();
+//   listTags(tags);
+// }
 
 // move to domUpdate
 function listTags(allTags) {

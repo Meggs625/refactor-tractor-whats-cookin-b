@@ -2,6 +2,7 @@
 import users from './data/users-data';
 import recipeData from  './data/recipe-data';
 import ingredientsData from './data/ingredient-data';
+import {getData} from './apiCalls';
 
 // import css
 import './css/base.scss';
@@ -29,6 +30,10 @@ let pantryInfo = [];
 let menuOpen = false;
 let recipes = [];
 let user;
+//newly added
+// let allUsers = [];
+// let allIngredients = [];
+// let allRecipes = [];
 
 // event listeners 
 // 3 event listeners for window load?
@@ -44,6 +49,20 @@ searchBtn.addEventListener("click", searchRecipes);
 showPantryRecipes.addEventListener("click", findCheckedPantryBoxes);
 searchForm.addEventListener("submit", pressEnterSearch);
 
+//newly added
+window.addEventListener('load', gatherData);
+
+
+function gatherData() {
+  Promise.all([getData('users'), getData('ingredients'),
+    getData('recipes')])
+    .then(data => {
+      const allUsers = data[0].usersData;
+      const allIngredients = data[1].ingredientsData;
+      const allRecipes = data[2].recipeData;
+    })
+  }
+  console.log(allUsers)
 // GENERATE A USER ON LOAD
 // generates random user, gets name and renders first name to dom
 // 2 functions, 51-52 stay, rest move to dom, 59 move to general window load function
@@ -328,7 +347,6 @@ function findPantryInfo() {
     let itemInfo = ingredientsData.find(ingredient => {
       return ingredient.id === item.ingredient;
     });
-    debugger
     let originalIngredient = pantryInfo.find(ingredient => {
       if (itemInfo) {
         return ingredient.name === itemInfo.name;

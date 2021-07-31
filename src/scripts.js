@@ -95,7 +95,7 @@ function getUpdatedQuantity() {
   let updatedQuantity = {
     userID: 1, 
     ingredientID: 11477, 
-    ingredientModification: -19
+    ingredientModification: 0
 }
 updateIngredientQuantity(updatedQuantity)
 }
@@ -106,12 +106,18 @@ function updateIngredientQuantity(qty) {
     body: JSON.stringify(qty),
     headers: {'Content-Type': 'application/json'}
   })
-  .then(response => response.json())
+  .then(response => checkForError(response))
   .then(json => console.log(json))
   .catch(err => console.log(err))
 }
 
-
+function checkForError(res) {
+  if (!res.ok) {
+    throw new Error('An Error Occured - this is where the message goes')
+  } else {
+    return res.json()
+  }
+}
 
 
 // GENERATE A USER ON LOAD

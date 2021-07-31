@@ -107,7 +107,7 @@ function updateIngredientQuantity(qty) {
     headers: {'Content-Type': 'application/json'}
   })
   .then(response => checkForError(response))
-  .then(json => console.log(json))
+  .then(data => console.log(data))
   .catch(err => console.log(err))
 }
 

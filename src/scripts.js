@@ -1,6 +1,6 @@
 // import data
 import users from './data/users-data';
-import recipeData from  './data/recipe-data';
+// import recipeData from  './data/recipe-data';
 import ingredientsData from './data/ingredient-data';
 import {getData} from './apiCalls';
 
@@ -60,14 +60,15 @@ function gatherData() {
       const allUsers = data[0].usersData;
       const allIngredients = data[1].ingredientsData;
       const allRecipes = data[2].recipeData;
+      generateUser(allUsers);
+      createCards(allRecipes);
     })
-  }
-  console.log(allUsers)
+}
 // GENERATE A USER ON LOAD
 // generates random user, gets name and renders first name to dom
 // 2 functions, 51-52 stay, rest move to dom, 59 move to general window load function
-function generateUser() {
-  user = new User(users[Math.floor(Math.random() * users.length)]);
+function generateUser(userInfo) {
+  user = new User(userInfo[Math.floor(Math.random() * userInfo.length)]);
   let firstName = user.name.split(" ")[0];
   let welcomeMsg = `
     <div class="welcome-msg">
@@ -82,7 +83,7 @@ function generateUser() {
 // refactor shortrecipe name to a wrap to show full name
 // potentially broken down to 2 functions
 // stays here, but move to helper function area
-function createCards() {
+function createCards(recipeData) {
   recipeData.forEach(recipe => {
     let recipeInfo = new Recipe(recipe);
     let shortRecipeName = recipeInfo.name;

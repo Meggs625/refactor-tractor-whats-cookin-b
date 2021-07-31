@@ -5,4 +5,3 @@ export const getData = (dataSet) => {
     .catch(err => console.log(`${dataSet} error: ${err}`))
 }
 
-// export default {getData};

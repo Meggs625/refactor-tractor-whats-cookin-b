@@ -9,7 +9,9 @@ class IngredientRepository {
         return ingredient
       }
     });
-    return ingredientInfo.name;
+    if (ingredientInfo) {
+      return ingredientInfo.name;
+    }
   }
 }
 

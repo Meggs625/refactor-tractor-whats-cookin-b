@@ -1,4 +1,5 @@
-import IngredientRepository from '../IngredientRepository';
+import IngredientRepository from './IngredientRepository';
+
 
 class Pantry {
   constructor(userPantry) {
@@ -7,15 +8,15 @@ class Pantry {
   }
 
   
-  returnCurrentPantry() {
+  returnCurrentPantry(ingredientData) {
+    const ingredientRepo = new IngredientRepository(ingredientData)
     let currentFoodItems = [];
     this.pantry.forEach(item => {
       currentFoodItems.push(
-        {name: IngredientReposity.returnIngredientName(item.ingredient), 
+        {name: ingredientRepo.returnIngredientName(item.ingredient), 
           amount: item.amount})
-    });  
+    });
     return currentFoodItems;
-    // need to build test for this when able to call the ingredient's method
   }
 
   assessIngredients(recipeData) {

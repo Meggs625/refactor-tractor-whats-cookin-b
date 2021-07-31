@@ -1,7 +1,7 @@
 // import data
 // import users from './data/users-data';
 // import recipeData from  './data/recipe-data';
-import ingredientsData from './data/ingredient-data';
+// import ingredientsData from './data/ingredient-data';
 import {getData} from './apiCalls';
 import domUpdates from './domUpdates.js';
 
@@ -14,7 +14,8 @@ import User from './user';
 import Recipe from './recipe';
 import RecipeRepository from './RecipeRepository';
 import Pantry from './Pantry';
-// import IngredientRepository from './IngredientRepository';
+import Ingredient from './Ingredient';
+import IngredientRepository from './IngredientRepository'
 
 // query selectors (move to domUpdates)
 let allRecipesBtn = document.querySelector(".show-all-btn");
@@ -34,6 +35,7 @@ let tagList = document.querySelector(".tag-list");
 let menuOpen = false;
 let recipes = [];
 let user;
+let ingredients = [];
 //newly added
 // let allUsers = [];
 // let allIngredients = [];
@@ -82,7 +84,9 @@ function generateUserData(data) {
 }
 
 function generateIngredientData(data) {
-  
+  data.forEach(item => ingredients.push(item))
+  findPantryInfo(data);
+  console.log(ingredients)
 }
 
 function generateRecipeData(data) {
@@ -135,7 +139,8 @@ function generateUser(userInfo) {
     </div>`;
   document.querySelector(".banner-image").insertAdjacentHTML("afterbegin",
     welcomeMsg);
-  findPantryInfo();
+  // findPantryInfo();
+  //moved to generateIngredientData
 }
 
 // CREATE RECIPE CARDS
@@ -549,10 +554,10 @@ function showAllRecipes() {
 
 
 //****This replaces the function above to display the user Pantry info */
-function findPantryInfo() {
+function findPantryInfo(ingredientData) {
   let pantry = new Pantry(user.pantry);
-  let pantryInfo = pantry.returnCurrentPantry(ingredientsData)
-  displayPantryInfo(pantryInfo.sort((a, b) => a.name.localeCompare(b.name)));
+  let pantryInfo = pantry.returnCurrentPantry(ingredientData)
+  displayPantryInfo(pantryInfo.sort((a, b) => a.name > b.name ? 1 : -1));
 }
 
 //add ingredient.name inside <li> when you're ready and add to domUpdates

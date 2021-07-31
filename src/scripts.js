@@ -1,8 +1,9 @@
 // import data
-import users from './data/users-data';
+// import users from './data/users-data';
 // import recipeData from  './data/recipe-data';
-import ingredientsData from './data/ingredient-data';
+// import ingredientsData from './data/ingredient-data';
 import {getData} from './apiCalls';
+import domUpdates from './domUpdates.js';
 
 // import css
 import './css/base.scss';
@@ -199,6 +200,7 @@ function capitalize(words) {
   }).join(" ");
 }
 
+
 // FILTER TAGGED RECIPES
 // this works.. 
 function findCheckedBoxes() {
@@ -244,6 +246,30 @@ function hideUnselectedRecipes(foundRecipes) {
   });
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // FAVORITE RECIPE FUNCTIONALITY
 // pass event into this function
 // serperate into different functions
@@ -288,6 +314,81 @@ function showSavedRecipes() {
   });
   showMyRecipesBanner();
 }
+
+
+// SEARCH RECIPES
+function pressEnterSearch(event) {
+  event.preventDefault();
+  searchRecipes();
+}
+
+function searchRecipes() {
+  showAllRecipes();
+  let searchedRecipes = recipeData.filter(recipe => {
+    return recipe.name.toLowerCase().includes(searchInput.value.toLowerCase());
+  });
+  filterNonSearched(createRecipeObject(searchedRecipes));
+}
+
+function filterNonSearched(filtered) {
+  let found = recipes.filter(recipe => {
+    let ids = filtered.map(f => f.id);
+    return !ids.includes(recipe.id)
+  })
+  hideUnselectedRecipes(found);
+}
+
+function createRecipeObject(recipes) {
+  recipes = recipes.map(recipe => new Recipe(recipe));
+  return recipes
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // CREATE RECIPE INSTRUCTIONS - move to domUpdates
 function openRecipeInfo(event) {
@@ -349,32 +450,57 @@ function showWelcomeBanner() {
   document.querySelector(".my-recipes-banner").style.display = "none";
 }
 
-// SEARCH RECIPES
-function pressEnterSearch(event) {
-  event.preventDefault();
-  searchRecipes();
-}
 
-function searchRecipes() {
-  showAllRecipes();
-  let searchedRecipes = recipeData.filter(recipe => {
-    return recipe.name.toLowerCase().includes(searchInput.value.toLowerCase());
-  });
-  filterNonSearched(createRecipeObject(searchedRecipes));
-}
 
-function filterNonSearched(filtered) {
-  let found = recipes.filter(recipe => {
-    let ids = filtered.map(f => f.id);
-    return !ids.includes(recipe.id)
-  })
-  hideUnselectedRecipes(found);
-}
 
-function createRecipeObject(recipes) {
-  recipes = recipes.map(recipe => new Recipe(recipe));
-  return recipes
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // This is pantry
 function toggleMenu() {
   var menuDropdown = document.querySelector(".drop-menu");
@@ -393,6 +519,7 @@ function showAllRecipes() {
   });
   showWelcomeBanner();
 }
+
 
 // CREATE AND USE PANTRY
 // Split into seperate functions? 
@@ -456,3 +583,47 @@ function findRecipesWithCheckedIngredients(selected) {
     }
   })
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//

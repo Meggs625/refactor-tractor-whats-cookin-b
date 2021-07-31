@@ -43,8 +43,8 @@ let user;
 // window.addEventListener("load", generateUser);
 allRecipesBtn.addEventListener("click", showAllRecipes);
 
-// filterBtn.addEventListener("click", findCheckedBoxes);
-filterBtn.addEventListener("click", getUpdatedQuantity);
+filterBtn.addEventListener("click", findCheckedBoxes);
+// filterBtn.addEventListener("click", getUpdatedQuantity);
 
 main.addEventListener("click", addToMyRecipes);
 pantryBtn.addEventListener("click", toggleMenu);

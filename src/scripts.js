@@ -241,7 +241,7 @@ function findTaggedRecipes(selected) {
       }
     })
   });
-  domUpdates.showAllRecipes(recipes);
+  domUpdates.renderAllRecipes(recipes);
   if (filteredResults.length > 0) {
     filterRecipes(filteredResults);
   }
@@ -340,7 +340,7 @@ function pressEnterSearch(event) {
 }
 
 function searchRecipes() {
-  domUpdates.showAllRecipes(recipes);
+  domUpdates.renderAllRecipes(recipes);
   let searchedRecipes = recipeRepo.recipes.filter(recipe => {
     return recipe.name.toLowerCase().includes(searchInput.value.toLowerCase());
   });
@@ -566,7 +566,7 @@ function showWelcomeBanner() {
 
 // THis function replaces the toggleMenu below --- which was moved to the DOM file
 function displayPantryMenu() {
-  domUpdates.toggleMenu(menuOpen);
+  domUpdates.renderToggleMenu(menuOpen);
 }
 
 //**Moved to domUpdates
@@ -582,7 +582,7 @@ function displayPantryMenu() {
 //made to call the moved function below
 
 function displayAllRecipes() {
-  domUpdates.showAllRecipes(recipes);
+  domUpdates.renderAllRecipes(recipes);
   showWelcomeBanner();
 }
 // **Moved to domUpdates --- now requires recipes to be passed as argument
@@ -624,7 +624,7 @@ function displayAllRecipes() {
 function findPantryInfo(ingredientData) {
   let pantry = new Pantry(user.pantry);
   let pantryInfo = pantry.returnCurrentPantry(ingredientData)
-  domUpdates.displayPantryInfo(pantryInfo.sort((a, b) => a.name > b.name ? 1 : -1));
+  domUpdates.renderPantryInfo(pantryInfo.sort((a, b) => a.name > b.name ? 1 : -1));
 }
 
 //add ingredient.name inside <li> when you're ready and add to domUpdates
@@ -644,7 +644,7 @@ function findCheckedPantryBoxes() {
   let selectedIngredients = pantryCheckboxInfo.filter(box => {
     return box.checked;
   })
-  domUpdates.showAllRecipes(recipes);
+  domUpdates.renderAllRecipes(recipes);
   if (selectedIngredients.length > 0) {
     findRecipesWithCheckedIngredients(selectedIngredients);
   }

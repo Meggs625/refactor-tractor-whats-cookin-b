@@ -64,7 +64,7 @@ const domUpdates = {
 
 
 
-  toggleMenu(menuOpen) {
+  renderToggleMenu(menuOpen) {
     var menuDropdown = document.querySelector(".drop-menu");
     menuOpen = !menuOpen;
     if (menuOpen) {
@@ -74,14 +74,14 @@ const domUpdates = {
     }
   },
 
-  showAllRecipes(recipes) {
+  renderAllRecipes(recipes) {
     recipes.forEach(recipe => {
       let domRecipe = document.getElementById(`${recipe.id}`);
       domRecipe.style.display = "block";
     });
   },
 
-  displayPantryInfo(pantry) {
+  renderPantryInfo(pantry) {
     pantry.forEach(ingredient => {
       //updated id="${ingredient.name} to ${ingredient.id}"
       let ingredientHtml = `<li><input type="checkbox" class="pantry-checkbox" id="${ingredient.id}">${ingredient.name}</li>`;

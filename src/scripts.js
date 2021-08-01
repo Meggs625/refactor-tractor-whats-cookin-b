@@ -652,15 +652,19 @@ function findCheckedPantryBoxes() {
 // this should maybe be in the RecipeRepository Class, but already there with filter by tag/recipe/name?
 function findRecipesWithCheckedIngredients(selected) {
   let recipeChecker = (arr, target) => target.every(v => arr.includes(v));
-  let ingredientNames = selected.map(item => {
-    return item.id;
+  let ingredientIDs = selected.map(item => {
+    return parseInt(item.id);
   })
-  recipes.forEach(recipe => {
+  //ingredientNames are just the names of those items selected ex: 'apple'
+  // If this function is going to work, we either change what is being added as the ,<li> to include the ID, or we use the ingredients class?
+  recipeRepo.recipes.forEach(recipe => {
     let allRecipeIngredients = [];
-    recipe.ingredients.forEach(ingredient => {
-      allRecipeIngredients.push(ingredient.name);
+    // console.log(allRecipeIngredients)
+    //the names of the ingredients in the recipe
+    recipe.ingredients.forEach(ingredient => {    
+      allRecipeIngredients.push(ingredient.id);
     });
-    if (!recipeChecker(allRecipeIngredients, ingredientNames)) {
+    if (!recipeChecker(allRecipeIngredients, ingredientIDs)) {
       domUpdates.hideUnchecked(recipe);
       // ** The below was added to domUpdates
       // let domRecipe = document.getElementById(`${recipe.id}`);
@@ -668,6 +672,28 @@ function findRecipesWithCheckedIngredients(selected) {
     }
   })
 }
+
+// function findRecipesWithCheckedIngredients(selected) {
+//   let recipeChecker = (arr, target) => target.every(v => arr.includes(v));
+//   let ingredientNames = selected.map(item => {
+//     return item.id;
+//   })
+//   //ingredientNames are just the names of those items selected ex: 'apple'
+//   recipes.forEach(recipe => {
+//     let allRecipeIngredients = [];
+//     //the names of the ingredients in the recipe
+//     recipe.ingredients.forEach(ingredient => {
+//       allRecipeIngredients.push(ingredient.name);
+//     });
+//     if (!recipeChecker(allRecipeIngredients, ingredientNames)) {
+//       domUpdates.hideUnchecked(recipe);
+//       // ** The below was added to domUpdates
+//       // let domRecipe = document.getElementById(`${recipe.id}`);
+//       // domRecipe.style.display = "none";
+//     }
+//   })
+// }
+
 
 
 

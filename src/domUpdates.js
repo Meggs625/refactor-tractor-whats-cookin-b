@@ -83,7 +83,8 @@ const domUpdates = {
 
   displayPantryInfo(pantry) {
     pantry.forEach(ingredient => {
-      let ingredientHtml = `<li><input type="checkbox" class="pantry-checkbox" id="${ingredient.name}">${ingredient.name}</li>`;
+      //updated id="${ingredient.name} to ${ingredient.id}"
+      let ingredientHtml = `<li><input type="checkbox" class="pantry-checkbox" id="${ingredient.id}">${ingredient.name}</li>`;
       document.querySelector(".pantry-list").insertAdjacentHTML("beforeend",
         ingredientHtml);
     });

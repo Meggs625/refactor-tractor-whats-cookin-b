@@ -14,6 +14,7 @@ class Pantry {
     this.pantry.forEach(item => {
       currentFoodItems.push(
         {name: ingredientRepo.returnIngredientName(item.ingredient), 
+          id: item.ingredient,
           amount: item.amount})
     });
     return currentFoodItems;

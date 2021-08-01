@@ -30,6 +30,7 @@ let allRecipesBtn = document.querySelector(".show-all-btn");
 let filterBtn = document.querySelector(".filter-btn");
 // let fullRecipeInfo = document.querySelector(".recipe-instructions");
 let main = document.querySelector("main");
+//can pantryBtn move to the dom file with the toggleMenu method??
 let pantryBtn = document.querySelector(".my-pantry-btn");
 let savedRecipesBtn = document.querySelector(".saved-recipes-btn");
 let searchBtn = document.querySelector(".search-btn");
@@ -54,7 +55,7 @@ let user, recipeRepo;
 // window.addEventListener("load", createCards);
 // window.addEventListener("load", findTags);
 // window.addEventListener("load", generateUser);
-allRecipesBtn.addEventListener("click", showAllRecipes);
+allRecipesBtn.addEventListener("click", displayAllRecipes);
 
 filterBtn.addEventListener("click", findCheckedBoxes);
 // filterBtn.addEventListener("click", getUpdatedQuantity);
@@ -62,7 +63,7 @@ filterBtn.addEventListener("click", findCheckedBoxes);
 main.addEventListener("click", function (event) {
   addToMyRecipes(event)
 });
-pantryBtn.addEventListener("click", toggleMenu);
+pantryBtn.addEventListener("click", displayPantryMenu);
 savedRecipesBtn.addEventListener("click", showSavedRecipes);
 searchBtn.addEventListener("click", searchRecipes);
 showPantryRecipes.addEventListener("click", findCheckedPantryBoxes);
@@ -76,9 +77,9 @@ function gatherData() {
   Promise.all([getData('users'), getData('ingredients'),
     getData('recipes')])
     .then(data => {
-      generateUserData(data[0].usersData);
-      generateIngredientData(data[1].ingredientsData);
-      generateRecipeData(data[2].recipeData);
+      generateUserData(data[0]);
+      generateIngredientData(data[1]);
+      generateRecipeData(data[2]);
       // const allUsers = data[0].usersData;
       // const allIngredients = data[1].ingredientsData;
       // const allRecipes = data[2].recipeData;
@@ -240,7 +241,7 @@ function findTaggedRecipes(selected) {
       }
     })
   });
-  showAllRecipes();
+  domUpdates.showAllRecipes(recipes);
   if (filteredResults.length > 0) {
     filterRecipes(filteredResults);
   }
@@ -339,7 +340,7 @@ function pressEnterSearch(event) {
 }
 
 function searchRecipes() {
-  showAllRecipes();
+  domUpdates.showAllRecipes(recipes);
   let searchedRecipes = recipeRepo.recipes.filter(recipe => {
     return recipe.name.toLowerCase().includes(searchInput.value.toLowerCase());
   });
@@ -563,24 +564,35 @@ function showWelcomeBanner() {
 
 
 
-// This is pantry
-function toggleMenu() {
-  var menuDropdown = document.querySelector(".drop-menu");
-  menuOpen = !menuOpen;
-  if (menuOpen) {
-    menuDropdown.style.display = "block";
-  } else {
-    menuDropdown.style.display = "none";
-  }
+// THis function replaces the toggleMenu below --- which was moved to the DOM file
+function displayPantryMenu() {
+  domUpdates.toggleMenu(menuOpen);
 }
 
-function showAllRecipes() {
-  recipes.forEach(recipe => {
-    let domRecipe = document.getElementById(`${recipe.id}`);
-    domRecipe.style.display = "block";
-  });
+//**Moved to domUpdates
+// function toggleMenu() {
+//   var menuDropdown = document.querySelector(".drop-menu");
+//   menuOpen = !menuOpen;
+//   if (menuOpen) {
+//     menuDropdown.style.display = "block";
+//   } else {
+//     menuDropdown.style.display = "none";
+//   }
+// }
+//made to call the moved function below
+
+function displayAllRecipes() {
+  domUpdates.showAllRecipes(recipes);
   showWelcomeBanner();
 }
+// **Moved to domUpdates --- now requires recipes to be passed as argument
+// function showAllRecipes() {
+//   recipes.forEach(recipe => {
+//     let domRecipe = document.getElementById(`${recipe.id}`);
+//     domRecipe.style.display = "block";
+//   });
+//   showWelcomeBanner();
+// }
 
 
 // CREATE AND USE PANTRY
@@ -631,7 +643,7 @@ function findCheckedPantryBoxes() {
   let selectedIngredients = pantryCheckboxInfo.filter(box => {
     return box.checked;
   })
-  showAllRecipes();
+  domUpdates.showAllRecipes(recipes);
   if (selectedIngredients.length > 0) {
     findRecipesWithCheckedIngredients(selectedIngredients);
   }

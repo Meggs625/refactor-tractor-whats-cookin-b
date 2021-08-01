@@ -13,6 +13,9 @@ import './css/styles.scss';
 import User from './user';
 import Recipe from './recipe';
 import RecipeRepository from './RecipeRepository';
+// import Pantry from './Pantry';
+// import Ingredient from './Ingredient'
+// import IngredientRepository from './IngredientRepository';
 
 //import image
 import './images/apple-logo-outline.png'

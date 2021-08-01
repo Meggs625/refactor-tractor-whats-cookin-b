@@ -1,7 +1,7 @@
 // import data
 // import users from './data/users-data';
 // import recipeData from  './data/recipe-data';
-// import ingredientsData from './data/ingredient-data';
+import ingredientsData from './data/ingredient-data';
 import {getData} from './apiCalls';
 import domUpdates from './domUpdates.js';
 
@@ -47,7 +47,9 @@ allRecipesBtn.addEventListener("click", showAllRecipes);
 filterBtn.addEventListener("click", findCheckedBoxes);
 // filterBtn.addEventListener("click", getUpdatedQuantity);
 
-main.addEventListener("click", addToMyRecipes);
+main.addEventListener("click", function (event) {
+  addToMyRecipes(event)
+});
 pantryBtn.addEventListener("click", toggleMenu);
 savedRecipesBtn.addEventListener("click", showSavedRecipes);
 searchBtn.addEventListener("click", searchRecipes);
@@ -273,15 +275,15 @@ function hideUnselectedRecipes(foundRecipes) {
 // FAVORITE RECIPE FUNCTIONALITY
 // pass event into this function
 // serperate into different functions
-function addToMyRecipes() {
+function addToMyRecipes(event) {
   if (event.target.className === "card-apple-icon") {
     let cardId = parseInt(event.target.closest(".recipe-card").id)
     if (!user.favoriteRecipes.includes(cardId)) {
       event.target.src = "../images/apple-logo.png";
-      user.saveRecipe(cardId);
+      user.favoriteRecipe(cardId);
     } else {
       event.target.src = "../image-logo-es/apploutline.png";
-      user.removeRecipe(cardId);
+      user.removeFavoriteRecipe(cardId);
     }
   } else if (event.target.id === "exit-recipe-btn") {
     // serperate function

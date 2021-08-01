@@ -31,14 +31,19 @@ renderRecipeIngredients(bloop) {
   // `${capitalize(i.name)} (${i.quantity.amount} ${i.quantity.unit})`
 },
 
-renderRecipeInstructions(bloop) {
+renderRecipeInstructions(instructionsList) {
   let fullRecipeInfo = document.querySelector(".recipe-instructions")
 
   fullRecipeInfo.insertAdjacentHTML("beforeend", "<h4>Instructions</h4>");
   fullRecipeInfo.insertAdjacentHTML("beforeend", `<ol>${instructionsList}</ol>`);
+},
+
+renderRecipeImage(recipe) {
+  let fullRecipeInfo = document.querySelector(".recipe-instructions")
+  // let recipeTitle = document.getElementById("recipe-title")
+  // .style.backgroundImage = `url(${recipe})`;
+  fullRecipeInfo.insertAdjacentHTML('afterbegin', `<img class="recipe-title" src="${recipe}" />`)
 }
-
-
 
 
 

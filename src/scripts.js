@@ -38,7 +38,7 @@ let tagList = document.querySelector(".tag-list");
 let pantryInfo = [];
 let menuOpen = false;
 let recipes = [];
-let user;
+let user, recipeRepo;
 //newly added
 // let allUsers = [];
 // let allIngredients = [];
@@ -93,7 +93,7 @@ function generateIngredientData(data) {
 }
 
 function generateRecipeData(data) {
-  const recipeRepo = new RecipeRepository(data);
+  recipeRepo = new RecipeRepository(data);
   createCards(recipeRepo.recipes);
   listTags(recipeRepo.findRecipeTags())
 
@@ -333,7 +333,7 @@ function pressEnterSearch(event) {
 
 function searchRecipes() {
   showAllRecipes();
-  let searchedRecipes = recipeData.filter(recipe => {
+  let searchedRecipes = recipeRepo.recipes.filter(recipe => {
     return recipe.name.toLowerCase().includes(searchInput.value.toLowerCase());
   });
   filterNonSearched(createRecipeObject(searchedRecipes));

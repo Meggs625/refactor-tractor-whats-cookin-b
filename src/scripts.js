@@ -18,6 +18,7 @@ import Pantry from './Pantry';
 import Ingredient from './Ingredient';
 import IngredientRepository from './IngredientRepository'
 // import Pantry from './Pantry';
+
 //import image
 import './images/apple-logo-outline.png'
 import './images/apple-logo.png'
@@ -44,7 +45,7 @@ let showPantryRecipes = document.querySelector(".show-pantry-recipes-btn");
 let menuOpen = false;
 let recipes = [];
 // let ingredients = [];
-let user, recipeRepo;
+let user, recipeRepo, ingredientRepo, recipe;
 //newly added
 // let allUsers = [];
 // let allIngredients = [];
@@ -95,12 +96,15 @@ function generateUserData(data) {
 }
 
 function generateIngredientData(data) {
+  ingredientRepo = new IngredientRepository(data);
   // data.forEach(item => ingredients.push(item))
   findPantryInfo(data);
 }
 
 function generateRecipeData(data) {
   recipeRepo = new RecipeRepository(data);
+  recipe = new Recipe(recipeRepo)
+
   createCards(recipeRepo.recipes);
   domUpdates.renderTags(recipeRepo.findRecipeTags())
 
@@ -305,7 +309,9 @@ function addToMyRecipes(event) {
     // serperate function
     exitRecipe();
   } else if (isDescendant(event.target.closest(".recipe-card"), event.target)) {
-    openRecipeInfo(event);
+    let cardId = parseInt(event.target.closest(".recipe-card").id)
+    // openRecipeInfo(event);
+    displayRecipeInfo(cardId);
   }
 }
 // is this needed? better way to target openRecipeInfo()?
@@ -411,29 +417,34 @@ function createRecipeObject(recipes) {
 // CREATE RECIPE INSTRUCTIONS 
 function displayRecipeInfo(recipeID) {
   const currentRecipe = findRecipe(recipeID);
-  const ingredients = findIngredients(recipeID);
-  const instructions = findInstructions(recipeID)
+  const currentRecipeImage = findRecipeImage(currentRecipe);
+  const listedIngredients = findIngredients(currentRecipe);
+  const instructions = findInstructions(currentRecipe)
 
-  domUpdates.renderRecipeTitle(currentRecipe, ingredients);
-  domUpdates.renderRecipeIngredients(ingredients);
+  domUpdates.renderRecipeInfo();
+  domUpdates.renderRecipeImage(currentRecipeImage);
+  domUpdates.renderRecipeTitle(currentRecipe, listedIngredients);
+  domUpdates.renderRecipeIngredients(listedIngredients);
   domUpdates.renderRecipeInstructions(instructions);
-}
 
-function findRecipeInfo(id) {
-  // if event.target === id
-  // ?????
+  exitRecipe();
 }
 
 function findRecipe(id) {
-  const recipe = recipeData.find(recipe => recipe.id === id)
+  const recipe = recipeRepo.recipes.find(recipe => recipe.id === id)
   const currentRecipe = new Recipe(recipe);
   return currentRecipe;
 }
 
-function findIngredients(id) {
+function findRecipeImage(recipe) {
+  const recipePhoto = recipe.image;
+  return recipePhoto;
+}
+
+function findIngredients(recipe) {
   const listedIngredients = [];
-  const getListedIngredients = recipe.ingredients.map(ingredient => {
-    ingredients.forEach(listItem => {
+  recipe.ingredients.map(ingredient => {
+    ingredientRepo.data.forEach(listItem => {
       if (listItem.id === ingredient.id) {
         listedIngredients.push(listItem.name)
       }
@@ -442,23 +453,24 @@ function findIngredients(id) {
   return listedIngredients;
 }
 
-
-function findInstructions(id) {
+function findInstructions(recipe) {
   return recipe.retrieveInstructions();
 }
 
 
 
 // -move to domUpdates
-function openRecipeInfo(event) {
+// function openRecipeInfo(event) {
   // fullRecipeInfo.style.display = "inline";
   // let recipeId = event.path.find(e => e.id).id;
   // let recipe = recipeData.find(recipe => recipe.id === Number(recipeId));
   // generateRecipeTitle(recipe, generateIngredients(recipe));
-  addRecipeImage(recipe);
+
+  // addRecipeImage(recipe);
+
   // generateInstructions(recipe);
   // fullRecipeInfo.insertAdjacentHTML("beforebegin", "<section id='overlay'></div>");
-}
+// }
 
 // move to domUpdates
 // function generateRecipeTitle(recipe, ingredients) {
@@ -471,10 +483,9 @@ function openRecipeInfo(event) {
 // }
 
 
-// recipe-title ID does NOT exist
-function addRecipeImage(recipe) {
-  document.getElementById("recipe-title").style.backgroundImage = `url(${recipe.image})`;
-}
+// function addRecipeImage(recipe) {
+//   document.getElementById("recipe-title").style.backgroundImage = `url(${recipe.image})`;
+// }
 
 // function generateIngredients(recipe) {
 //   return recipe && recipe.ingredients.map(i => {
@@ -497,10 +508,15 @@ function addRecipeImage(recipe) {
 // }
 
 function exitRecipe() {
+  // const fullRecipeInfo = document.querySelector(".recipe-instructions")
+  // const exitBtn = document.getElementById('exit-recipe-btn')
+  // if (exitBtn.onclick) {
+  //   fullRecipeInfo.removeChild(fullRecipeInfo.firstChild);
+  //   document.getElementById("overlay").remove();
+  // }
   while (fullRecipeInfo.firstChild &&
     fullRecipeInfo.removeChild(fullRecipeInfo.firstChild));
   fullRecipeInfo.style.display = "none";
-  document.getElementById("overlay").remove();
 }
 
 // TOGGLE DISPLAYS - show/hide (show/hide hidden class)

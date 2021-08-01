@@ -624,17 +624,18 @@ function displayAllRecipes() {
 function findPantryInfo(ingredientData) {
   let pantry = new Pantry(user.pantry);
   let pantryInfo = pantry.returnCurrentPantry(ingredientData)
-  displayPantryInfo(pantryInfo.sort((a, b) => a.name > b.name ? 1 : -1));
+  domUpdates.displayPantryInfo(pantryInfo.sort((a, b) => a.name > b.name ? 1 : -1));
 }
 
 //add ingredient.name inside <li> when you're ready and add to domUpdates
-function displayPantryInfo(pantry) {
-  pantry.forEach(ingredient => {
-    let ingredientHtml = `<li><input type="checkbox" class="pantry-checkbox" id="${ingredient.name}">${ingredient.name}</li>`;
-    document.querySelector(".pantry-list").insertAdjacentHTML("beforeend",
-      ingredientHtml);
-  });
-}
+// ** Moved to domUpdates file 
+// function displayPantryInfo(pantry) {
+//   pantry.forEach(ingredient => {
+//     let ingredientHtml = `<li><input type="checkbox" class="pantry-checkbox" id="${ingredient.name}">${ingredient.name}</li>`;
+//     document.querySelector(".pantry-list").insertAdjacentHTML("beforeend",
+//       ingredientHtml);
+//   });
+// }
 // does this belong in a Class?
 // if this is data manipulation, does it belong in a Class with a method that filters/etc?
 function findCheckedPantryBoxes() {
@@ -660,8 +661,10 @@ function findRecipesWithCheckedIngredients(selected) {
       allRecipeIngredients.push(ingredient.name);
     });
     if (!recipeChecker(allRecipeIngredients, ingredientNames)) {
-      let domRecipe = document.getElementById(`${recipe.id}`);
-      domRecipe.style.display = "none";
+      domUpdates.hideUnchecked(recipe);
+      // ** The below was added to domUpdates
+      // let domRecipe = document.getElementById(`${recipe.id}`);
+      // domRecipe.style.display = "none";
     }
   })
 }

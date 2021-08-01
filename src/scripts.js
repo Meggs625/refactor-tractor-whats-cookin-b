@@ -1,7 +1,7 @@
 // import data
 // import users from './data/users-data';
 // import recipeData from  './data/recipe-data';
-// import ingredientsData from './data/ingredient-data';
+import ingredientsData from './data/ingredient-data';
 import {getData} from './apiCalls';
 import domUpdates from './domUpdates.js';
 
@@ -13,6 +13,9 @@ import './css/styles.scss';
 import User from './user';
 import Recipe from './recipe';
 import RecipeRepository from './RecipeRepository';
+import IngredientRepository from './IngredientRepository';
+import Ingredient from './Ingredient';
+// import Pantry from './Pantry';
 
 // query selectors (move to domUpdates)
 let allRecipesBtn = document.querySelector(".show-all-btn");

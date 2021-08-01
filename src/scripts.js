@@ -424,10 +424,11 @@ function displayRecipeInfo(recipeID) {
   domUpdates.renderRecipeTitle(currentRecipe, listedIngredients);
   domUpdates.renderRecipeIngredients(listedIngredients);
   domUpdates.renderRecipeInstructions(instructions);
+
+  exitRecipe();
 }
 
 function findRecipe(id) {
-  console.log(id)
   const recipe = recipeRepo.recipes.find(recipe => recipe.id === id)
   const currentRecipe = new Recipe(recipe);
   return currentRecipe;
@@ -435,13 +436,12 @@ function findRecipe(id) {
 
 function findRecipeImage(recipe) {
   const recipePhoto = recipe.image;
-  console.log(recipePhoto)
   return recipePhoto;
 }
 
 function findIngredients(recipe) {
   const listedIngredients = [];
-  const getListedIngredients = recipe.ingredients.map(ingredient => {
+  recipe.ingredients.map(ingredient => {
     ingredientRepo.data.forEach(listItem => {
       if (listItem.id === ingredient.id) {
         listedIngredients.push(listItem.name)
@@ -481,7 +481,6 @@ function findInstructions(recipe) {
 // }
 
 
-// recipe-title ID does NOT exist
 // function addRecipeImage(recipe) {
 //   document.getElementById("recipe-title").style.backgroundImage = `url(${recipe.image})`;
 // }
@@ -507,10 +506,15 @@ function findInstructions(recipe) {
 // }
 
 function exitRecipe() {
+  // const fullRecipeInfo = document.querySelector(".recipe-instructions")
+  // const exitBtn = document.getElementById('exit-recipe-btn')
+  // if (exitBtn.onclick) {
+  //   fullRecipeInfo.removeChild(fullRecipeInfo.firstChild);
+  //   document.getElementById("overlay").remove();
+  // }
   while (fullRecipeInfo.firstChild &&
     fullRecipeInfo.removeChild(fullRecipeInfo.firstChild));
   fullRecipeInfo.style.display = "none";
-  document.getElementById("overlay").remove();
 }
 
 // TOGGLE DISPLAYS - show/hide (show/hide hidden class)

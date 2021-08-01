@@ -27,7 +27,9 @@ renderRecipeTitle(recipe, ingredients) {
   fullRecipeInfo.insertAdjacentHTML("beforeend", recipeTitle);
 },
 
-renderRecipeIngredients(bloop) {
+renderRecipeIngredients(ingredients) {
+  // let fullRecipeInfo = document.querySelector(".recipe-instructions")
+  // fullRecipeInfo.insertAdjacentElement('', )
   // `${capitalize(i.name)} (${i.quantity.amount} ${i.quantity.unit})`
 },
 
@@ -42,7 +44,7 @@ renderRecipeImage(recipe) {
   let fullRecipeInfo = document.querySelector(".recipe-instructions")
   // let recipeTitle = document.getElementById("recipe-title")
   // .style.backgroundImage = `url(${recipe})`;
-  fullRecipeInfo.insertAdjacentHTML('afterbegin', `<img class="recipe-title" src="${recipe}" />`)
+  fullRecipeInfo.insertAdjacentHTML('afterbegin', `<img class="recipe-title" src="${recipe}" alt="recipe image" />`)
 }
 
 

@@ -50,13 +50,11 @@ renderTags(allTags) {
     fullRecipeInfo.insertAdjacentHTML("beforeend", recipeTitle);
   },
 
-renderRecipeIngredients(ingredients) {
-  // let fullRecipeInfo = document.querySelector(".recipe-instructions")
-  // fullRecipeInfo.insertAdjacentElement('', )
+  renderRecipeIngredients(ingredients) {
+    // let fullRecipeInfo = document.querySelector(".recipe-instructions")
+    // fullRecipeInfo.insertAdjacentElement('', )
 
-  renderRecipeIngredients(bloop) {
-
-  // `${capitalize(i.name)} (${i.quantity.amount} ${i.quantity.unit})`
+    // `${capitalize(i.name)} (${i.quantity.amount} ${i.quantity.unit})`
   },
 
   renderRecipeInstructions(bloop) {
@@ -68,23 +66,20 @@ renderRecipeIngredients(ingredients) {
 
 
 
+  renderRecipeInstructions(instructionsList) {
+    let fullRecipeInfo = document.querySelector(".recipe-instructions")
+
+    fullRecipeInfo.insertAdjacentHTML("beforeend", "<h4>Instructions</h4>");
+    fullRecipeInfo.insertAdjacentHTML("beforeend", `<ol>${instructionsList}</ol>`);
+  },
 
 
-
-renderRecipeInstructions(instructionsList) {
-  let fullRecipeInfo = document.querySelector(".recipe-instructions")
-
-  fullRecipeInfo.insertAdjacentHTML("beforeend", "<h4>Instructions</h4>");
-  fullRecipeInfo.insertAdjacentHTML("beforeend", `<ol>${instructionsList}</ol>`);
-},
-
-
-renderRecipeImage(recipe) {
-  let fullRecipeInfo = document.querySelector(".recipe-instructions")
-  // let recipeTitle = document.getElementById("recipe-title")
-  // .style.backgroundImage = `url(${recipe})`;
-  fullRecipeInfo.insertAdjacentHTML('afterbegin', `<img class="recipe-title" src="${recipe}" alt="recipe image" />`)
-}
+  renderRecipeImage(recipe) {
+    let fullRecipeInfo = document.querySelector(".recipe-instructions")
+    // let recipeTitle = document.getElementById("recipe-title")
+    // .style.backgroundImage = `url(${recipe})`;
+    fullRecipeInfo.insertAdjacentHTML('afterbegin', `<img class="recipe-title" src="${recipe}" alt="recipe image" />`)
+  },
 
 
 

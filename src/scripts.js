@@ -31,13 +31,14 @@ let allRecipesBtn = document.querySelector(".show-all-btn");
 let filterBtn = document.querySelector(".filter-btn");
 // let fullRecipeInfo = document.querySelector(".recipe-instructions");
 let main = document.querySelector("main");
+//can pantryBtn move to the dom file with the toggleMenu method??
 let pantryBtn = document.querySelector(".my-pantry-btn");
 let savedRecipesBtn = document.querySelector(".saved-recipes-btn");
 let searchBtn = document.querySelector(".search-btn");
 let searchForm = document.querySelector("#search");
 let searchInput = document.querySelector("#search-input");
 let showPantryRecipes = document.querySelector(".show-pantry-recipes-btn");
-let tagList = document.querySelector(".tag-list");
+// let tagList = document.querySelector(".tag-list");
 
 //global variables (fit in functions?)
 // let pantryInfo = [];
@@ -55,7 +56,7 @@ let user, recipeRepo, ingredientRepo, recipe;
 // window.addEventListener("load", createCards);
 // window.addEventListener("load", findTags);
 // window.addEventListener("load", generateUser);
-allRecipesBtn.addEventListener("click", showAllRecipes);
+allRecipesBtn.addEventListener("click", displayAllRecipes);
 
 filterBtn.addEventListener("click", findCheckedBoxes);
 // filterBtn.addEventListener("click", getUpdatedQuantity);
@@ -63,7 +64,7 @@ filterBtn.addEventListener("click", findCheckedBoxes);
 main.addEventListener("click", function (event) {
   addToMyRecipes(event)
 });
-pantryBtn.addEventListener("click", toggleMenu);
+pantryBtn.addEventListener("click", displayPantryMenu);
 savedRecipesBtn.addEventListener("click", showSavedRecipes);
 searchBtn.addEventListener("click", searchRecipes);
 showPantryRecipes.addEventListener("click", findCheckedPantryBoxes);
@@ -105,7 +106,7 @@ function generateRecipeData(data) {
   recipe = new Recipe(recipeRepo)
 
   createCards(recipeRepo.recipes);
-  listTags(recipeRepo.findRecipeTags())
+  domUpdates.renderTags(recipeRepo.findRecipeTags())
 
   // console.log(recipeRepo.findRecipeTags());
   // console.log('recipe func: ', recipeRepo);
@@ -168,26 +169,27 @@ function createCards(recipeData) {
     if (recipeInfo.name.length > 40) {
       shortRecipeName = recipeInfo.name.substring(0, 40) + "...";
     }
-    addToDom(recipeInfo, shortRecipeName)
+    // addToDom(recipeInfo, shortRecipeName)
+    domUpdates.renderRecipeCard(recipeInfo, shortRecipeName)
   });
 }
 
 // Move to dom file
-function addToDom(recipeInfo, shortRecipeName) {
-  let cardHtml = `
-    <div class="recipe-card" id=${recipeInfo.id}>
-      <h4 maxlength="40">${shortRecipeName}</h4>
-      <div class="card-photo-container">
-        <img src=${recipeInfo.image} class="card-photo-preview" title="${recipeInfo.name} recipe">
-        <div class="text">
-          <div>Click for Instructions</div>
-        </div>
-      </div>
-      <h4>${recipeInfo.tags[0]}</h4>
-      <img src="./images/apple-logo-outline.png" class="card-apple-icon">
-    </div>`
-  main.insertAdjacentHTML("beforeend", cardHtml);
-}
+// function addToDom(recipeInfo, shortRecipeName) {
+//   let cardHtml = `
+//     <div class="recipe-card" id=${recipeInfo.id}>
+//       <h4 maxlength="40">${shortRecipeName}</h4>
+//       <div class="card-photo-container">
+//         <img src=${recipeInfo.image} class="card-photo-preview" title="${recipeInfo.name} recipe">
+//         <div class="text">
+//           <div>Click for Instructions</div>
+//         </div>
+//       </div>
+//       <h4>${recipeInfo.tags[0]}</h4>
+//       <img src="./images/apple-logo-outline.png" class="card-apple-icon">
+//     </div>`
+//   main.insertAdjacentHTML("beforeend", cardHtml);
+// }
 
 // FILTER BY RECIPE TAGS - MOVE TO RecipeRepository.js
 // *** This was moved to RecipeRepo as method .findTags() that returns the sorted list of tags
@@ -206,19 +208,19 @@ function addToDom(recipeInfo, shortRecipeName) {
 // }
 
 // move to domUpdate
-function listTags(allTags) {
-  allTags.forEach(tag => {
-    let tagHtml = `<li><input type="checkbox" class="checked-tag" id="${tag}">${tag}</li>`;
-    tagList.insertAdjacentHTML("beforeend", tagHtml);
-  });
-}
+// function listTags(allTags) {
+//   allTags.forEach(tag => {
+//     let tagHtml = `<li><input type="checkbox" class="checked-tag" id="${tag}">${tag}</li>`;
+//     tagList.insertAdjacentHTML("beforeend", tagHtml);
+//   });
+// }
 
 // Just for ingredients? need to be own seperate function?
-function capitalize(words) {
-  return words.split(" ").map(word => {
-    return word.charAt(0).toUpperCase() + word.slice(1);
-  }).join(" ");
-}
+// function capitalize(words) {
+//   return words.split(" ").map(word => {
+//     return word.charAt(0).toUpperCase() + word.slice(1);
+//   }).join(" ");
+// }
 
 
 // FILTER TAGGED RECIPES
@@ -244,7 +246,7 @@ function findTaggedRecipes(selected) {
       }
     })
   });
-  showAllRecipes();
+  domUpdates.renderAllRecipes(recipes);
   if (filteredResults.length > 0) {
     filterRecipes(filteredResults);
   }
@@ -345,7 +347,7 @@ function pressEnterSearch(event) {
 }
 
 function searchRecipes() {
-  showAllRecipes();
+  domUpdates.renderAllRecipes(recipes);
   let searchedRecipes = recipeRepo.recipes.filter(recipe => {
     return recipe.name.toLowerCase().includes(searchInput.value.toLowerCase());
   });
@@ -579,8 +581,8 @@ function showWelcomeBanner() {
 
 
 
-// This is pantry
-function toggleMenu() {
+// THis function replaces the toggleMenu below --- which was moved to the DOM file
+function displayPantryMenu() {
   var menuDropdown = document.querySelector(".drop-menu");
   menuOpen = !menuOpen;
   if (menuOpen) {
@@ -590,13 +592,30 @@ function toggleMenu() {
   }
 }
 
-function showAllRecipes() {
-  recipes.forEach(recipe => {
-    let domRecipe = document.getElementById(`${recipe.id}`);
-    domRecipe.style.display = "block";
-  });
+//**Moved to domUpdates
+// function toggleMenu() {
+//   var menuDropdown = document.querySelector(".drop-menu");
+//   menuOpen = !menuOpen;
+//   if (menuOpen) {
+//     menuDropdown.style.display = "block";
+//   } else {
+//     menuDropdown.style.display = "none";
+//   }
+// }
+//made to call the moved function below
+
+function displayAllRecipes() {
+  domUpdates.renderAllRecipes(recipes);
   showWelcomeBanner();
 }
+// **Moved to domUpdates --- now requires recipes to be passed as argument
+// function showAllRecipes() {
+//   recipes.forEach(recipe => {
+//     let domRecipe = document.getElementById(`${recipe.id}`);
+//     domRecipe.style.display = "block";
+//   });
+//   showWelcomeBanner();
+// }
 
 
 // CREATE AND USE PANTRY
@@ -628,17 +647,18 @@ function showAllRecipes() {
 function findPantryInfo(ingredientData) {
   let pantry = new Pantry(user.pantry);
   let pantryInfo = pantry.returnCurrentPantry(ingredientData)
-  displayPantryInfo(pantryInfo.sort((a, b) => a.name > b.name ? 1 : -1));
+  domUpdates.renderPantryInfo(pantryInfo.sort((a, b) => a.name > b.name ? 1 : -1));
 }
 
 //add ingredient.name inside <li> when you're ready and add to domUpdates
-function displayPantryInfo(pantry) {
-  pantry.forEach(ingredient => {
-    let ingredientHtml = `<li><input type="checkbox" class="pantry-checkbox" id="${ingredient.name}">${ingredient.name}</li>`;
-    document.querySelector(".pantry-list").insertAdjacentHTML("beforeend",
-      ingredientHtml);
-  });
-}
+// ** Moved to domUpdates file 
+// function displayPantryInfo(pantry) {
+//   pantry.forEach(ingredient => {
+//     let ingredientHtml = `<li><input type="checkbox" class="pantry-checkbox" id="${ingredient.name}">${ingredient.name}</li>`;
+//     document.querySelector(".pantry-list").insertAdjacentHTML("beforeend",
+//       ingredientHtml);
+//   });
+// }
 // does this belong in a Class?
 // if this is data manipulation, does it belong in a Class with a method that filters/etc?
 function findCheckedPantryBoxes() {
@@ -647,7 +667,7 @@ function findCheckedPantryBoxes() {
   let selectedIngredients = pantryCheckboxInfo.filter(box => {
     return box.checked;
   })
-  showAllRecipes();
+  domUpdates.renderAllRecipes(recipes);
   if (selectedIngredients.length > 0) {
     findRecipesWithCheckedIngredients(selectedIngredients);
   }
@@ -655,20 +675,48 @@ function findCheckedPantryBoxes() {
 // this should maybe be in the RecipeRepository Class, but already there with filter by tag/recipe/name?
 function findRecipesWithCheckedIngredients(selected) {
   let recipeChecker = (arr, target) => target.every(v => arr.includes(v));
-  let ingredientNames = selected.map(item => {
-    return item.id;
+  let ingredientIDs = selected.map(item => {
+    return parseInt(item.id);
   })
-  recipes.forEach(recipe => {
+  //ingredientNames are just the names of those items selected ex: 'apple'
+  // If this function is going to work, we either change what is being added as the ,<li> to include the ID, or we use the ingredients class?
+  recipeRepo.recipes.forEach(recipe => {
     let allRecipeIngredients = [];
-    recipe.ingredients.forEach(ingredient => {
-      allRecipeIngredients.push(ingredient.name);
+    // console.log(allRecipeIngredients)
+    //the names of the ingredients in the recipe
+    recipe.ingredients.forEach(ingredient => {    
+      allRecipeIngredients.push(ingredient.id);
     });
-    if (!recipeChecker(allRecipeIngredients, ingredientNames)) {
-      let domRecipe = document.getElementById(`${recipe.id}`);
-      domRecipe.style.display = "none";
+    if (!recipeChecker(allRecipeIngredients, ingredientIDs)) {
+      domUpdates.hideUnchecked(recipe);
+      // ** The below was added to domUpdates
+      // let domRecipe = document.getElementById(`${recipe.id}`);
+      // domRecipe.style.display = "none";
     }
   })
 }
+
+// function findRecipesWithCheckedIngredients(selected) {
+//   let recipeChecker = (arr, target) => target.every(v => arr.includes(v));
+//   let ingredientNames = selected.map(item => {
+//     return item.id;
+//   })
+//   //ingredientNames are just the names of those items selected ex: 'apple'
+//   recipes.forEach(recipe => {
+//     let allRecipeIngredients = [];
+//     //the names of the ingredients in the recipe
+//     recipe.ingredients.forEach(ingredient => {
+//       allRecipeIngredients.push(ingredient.name);
+//     });
+//     if (!recipeChecker(allRecipeIngredients, ingredientNames)) {
+//       domUpdates.hideUnchecked(recipe);
+//       // ** The below was added to domUpdates
+//       // let domRecipe = document.getElementById(`${recipe.id}`);
+//       // domRecipe.style.display = "none";
+//     }
+//   })
+// }
+
 
 
 

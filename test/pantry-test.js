@@ -2,9 +2,10 @@ import {expect} from 'chai';
 import Pantry from '../src/Pantry';
 import samplePantryData from '../src/data/pantry-test-data';
 import sampleRecipeData from '../src/data/recipe-test-data';
+import sampleIngredientData from '../src/data/ingredient-test-data'
 
 
-describe('Pantry', () => {
+describe.only('Pantry', () => {
   let userPantry;
 
   beforeEach(() => {
@@ -23,10 +24,10 @@ describe('Pantry', () => {
     expect(userPantry.pantry).to.deep.equal(samplePantryData)
   });
 
-  // it('should return the name of the ingredients currently in the pantry', () => {
-  //   const currentPantry = userPantry.returnCurrentPantry();
-  //   expect(currentPantry).to.deep.equal()
-  // })
+  it('should return the name of the ingredients currently in the pantry', () => {
+    const currentPantry = userPantry.returnCurrentPantry(sampleIngredientData);
+    expect(currentPantry[0].name).to.equal('zucchini squash')
+  });
 
   it('should determine if it holds all necessary ingredients for a recipe', () => {
     let cannotCook = userPantry.assessIngredients(sampleRecipeData) 

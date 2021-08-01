@@ -13,17 +13,17 @@ import './css/styles.scss';
 import User from './user';
 import Recipe from './recipe';
 import RecipeRepository from './RecipeRepository';
-import IngredientRepository from './IngredientRepository';
-import Ingredient from './Ingredient';
-// import Pantry from './Pantry';
 
+import Pantry from './Pantry';
+import Ingredient from './Ingredient';
+import IngredientRepository from './IngredientRepository'
+// import Pantry from './Pantry';
 //import image
 import './images/apple-logo-outline.png'
 import './images/apple-logo.png'
 import './images/search.png'
 import './images/cookbook.png'
 import './images/seasoning.png'
-
 
 // query selectors (move to domUpdates)
 let allRecipesBtn = document.querySelector(".show-all-btn");
@@ -39,9 +39,10 @@ let showPantryRecipes = document.querySelector(".show-pantry-recipes-btn");
 let tagList = document.querySelector(".tag-list");
 
 //global variables (fit in functions?)
-let pantryInfo = [];
+// let pantryInfo = [];
 let menuOpen = false;
 let recipes = [];
+// let ingredients = [];
 let user, recipeRepo;
 //newly added
 // let allUsers = [];
@@ -75,9 +76,9 @@ function gatherData() {
   Promise.all([getData('users'), getData('ingredients'),
     getData('recipes')])
     .then(data => {
-      generateUserData(data[0]);
-      generateIngredientData(data[1]);
-      generateRecipeData(data[2])
+      generateUserData(data[0].usersData);
+      generateIngredientData(data[1].ingredientsData);
+      generateRecipeData(data[2].recipeData);
       // const allUsers = data[0].usersData;
       // const allIngredients = data[1].ingredientsData;
       // const allRecipes = data[2].recipeData;
@@ -93,7 +94,8 @@ function generateUserData(data) {
 }
 
 function generateIngredientData(data) {
-
+  // data.forEach(item => ingredients.push(item))
+  findPantryInfo(data);
 }
 
 function generateRecipeData(data) {
@@ -110,8 +112,8 @@ function getUpdatedQuantity() {
     userID: 1, 
     ingredientID: 11477, 
     ingredientModification: 0
-}
-updateIngredientQuantity(updatedQuantity)
+  }
+  updateIngredientQuantity(updatedQuantity)
 }
 
 function updateIngredientQuantity(qty) {
@@ -120,9 +122,9 @@ function updateIngredientQuantity(qty) {
     body: JSON.stringify(qty),
     headers: {'Content-Type': 'application/json'}
   })
-  .then(response => checkForError(response))
-  .then(data => console.log(data))
-  .catch(err => console.log(err))
+    .then(response => checkForError(response))
+    .then(data => console.log(data))
+    .catch(err => console.log(err))
 }
 
 function checkForError(res) {
@@ -146,7 +148,8 @@ function generateUser(userInfo) {
     </div>`;
   document.querySelector(".banner-image").insertAdjacentHTML("afterbegin",
     welcomeMsg);
-  findPantryInfo();
+  // findPantryInfo();
+  //moved to generateIngredientData
 }
 
 // CREATE RECIPE CARDS
@@ -585,23 +588,31 @@ function showAllRecipes() {
 // Goes inside Pantry Class?
 
 //** Moved within the Pantry class - still need to build test to ensure functionality */
-function findPantryInfo() {
-  user.pantry.forEach(item => {
-    let itemInfo = ingredientsData.find(ingredient => {
-      return ingredient.id === item.ingredient;
-    });
-    let originalIngredient = pantryInfo.find(ingredient => {
-      if (itemInfo) {
-        return ingredient.name === itemInfo.name;
-      }
-    });
-    if (itemInfo && originalIngredient) {
-      originalIngredient.count += item.amount;
-    } else if (itemInfo) {
-      pantryInfo.push({name: itemInfo.name, count: item.amount});
-    }
-  });
-  displayPantryInfo(pantryInfo.sort((a, b) => a.name.localeCompare(b.name)));
+// function findPantryInfo() {
+//   user.pantry.forEach(item => {
+//     let itemInfo = ingredientsData.find(ingredient => {
+//       return ingredient.id === item.ingredient;
+//     });
+//     let originalIngredient = pantryInfo.find(ingredient => {
+//       if (itemInfo) {
+//         return ingredient.name === itemInfo.name;
+//       }
+//     });
+//     if (itemInfo && originalIngredient) {
+//       originalIngredient.count += item.amount;
+//     } else if (itemInfo) {
+//       pantryInfo.push({name: itemInfo.name, count: item.amount});
+//     }
+//   });
+//   displayPantryInfo(pantryInfo.sort((a, b) => a.name.localeCompare(b.name)));
+// }
+
+
+//****This replaces the function above to display the user Pantry info */
+function findPantryInfo(ingredientData) {
+  let pantry = new Pantry(user.pantry);
+  let pantryInfo = pantry.returnCurrentPantry(ingredientData)
+  displayPantryInfo(pantryInfo.sort((a, b) => a.name > b.name ? 1 : -1));
 }
 
 //add ingredient.name inside <li> when you're ready and add to domUpdates
@@ -642,6 +653,9 @@ function findRecipesWithCheckedIngredients(selected) {
     }
   })
 }
+
+
+
 
 
 

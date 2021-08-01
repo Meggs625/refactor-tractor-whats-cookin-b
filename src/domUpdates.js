@@ -3,9 +3,32 @@
 
 const domUpdates = {
 
+// CREATE RECIPE CARD
+renderRecipeCard(recipeInfo, shortRecipeName) {
+  let main = document.querySelector("main");
+  let cardHtml = `
+    <div class="recipe-card" id=${recipeInfo.id}>
+      <h4 maxlength="40">${shortRecipeName}</h4>
+      <div class="card-photo-container">
+        <img src=${recipeInfo.image} class="card-photo-preview" title="${recipeInfo.name} recipe">
+        <div class="text">
+          <div>Click for Instructions</div>
+        </div>
+      </div>
+      <h4>${recipeInfo.tags[0]}</h4>
+      <img src="./images/apple-logo-outline.png" class="card-apple-icon">
+    </div>`
+    main.insertAdjacentHTML("beforeend", cardHtml);
+},
 
-
-
+// LIST TAGS
+renderTags(allTags) {
+  let tagList = document.querySelector(".tag-list");
+  allTags.forEach(tag => {
+    let tagHtml = `<li><input type="checkbox" class="checked-tag" id="${tag}">${tag}</li>`;
+    tagList.insertAdjacentHTML("beforeend", tagHtml);
+  });
+},
   
 
 // CREATE RECIPE INSTRUCTIONS

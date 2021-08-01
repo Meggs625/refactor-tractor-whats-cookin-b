@@ -86,7 +86,6 @@ function generateUserData(data) {
 function generateIngredientData(data) {
   data.forEach(item => ingredients.push(item))
   findPantryInfo(data);
-  console.log(ingredients)
 }
 
 function generateRecipeData(data) {
@@ -582,21 +581,42 @@ function findCheckedPantryBoxes() {
   }
 }
 // this should maybe be in the RecipeRepository Class, but already there with filter by tag/recipe/name?
+// function findRecipesWithCheckedIngredients(selected) {
+//   let recipeChecker = (arr, target) => target.every(v => arr.includes(v));
+//   let ingredientNames = selected.map(item => {
+//     return item.id;
+//   })
+//   recipes.forEach(recipe => {
+//     let allRecipeIngredients = [];
+//     recipe.ingredients.forEach(ingredient => {
+//       allRecipeIngredients.push(ingredient.name);
+//     });
+//     if (!recipeChecker(allRecipeIngredients, ingredientNames)) {
+//       let domRecipe = document.getElementById(`${recipe.id}`);
+//       domRecipe.style.display = "none";
+//     }
+//   })
+// }
+
 function findRecipesWithCheckedIngredients(selected) {
-  let recipeChecker = (arr, target) => target.every(v => arr.includes(v));
-  let ingredientNames = selected.map(item => {
+  const recipeChecker = (arr, target) =>  target.every(v => arr.includes(v));
+  const ingredientNames = selected.map(item => {
     return item.id;
+        //array of the ingredient ids
   })
-  recipes.forEach(recipe => {
-    let allRecipeIngredients = [];
-    recipe.ingredients.forEach(ingredient => {
-      allRecipeIngredients.push(ingredient.name);
-    });
+  const recipeRepo = new RecipeRepository(recipes);
+  const response = recipeRepo.filterSearchRecipes(ingredientNames)
+  
+  // recipes.forEach(recipe => {
+  //   let allRecipeIngredients = [];
+  //   recipe.ingredients.forEach(ingredient => {
+  //     allRecipeIngredients.push(ingredient.name);
+  //   });
     if (!recipeChecker(allRecipeIngredients, ingredientNames)) {
       let domRecipe = document.getElementById(`${recipe.id}`);
       domRecipe.style.display = "none";
     }
-  })
+
 }
 
 

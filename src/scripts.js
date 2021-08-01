@@ -13,9 +13,9 @@ import './css/styles.scss';
 import User from './user';
 import Recipe from './recipe';
 import RecipeRepository from './RecipeRepository';
+import IngredientRepository from './IngredientRepository';
+import Ingredient from './Ingredient';
 // import Pantry from './Pantry';
-// import Ingredient from './Ingredient'
-// import IngredientRepository from './IngredientRepository';
 
 //import image
 import './images/apple-logo-outline.png'
@@ -24,10 +24,11 @@ import './images/search.png'
 import './images/cookbook.png'
 import './images/seasoning.png'
 
+
 // query selectors (move to domUpdates)
 let allRecipesBtn = document.querySelector(".show-all-btn");
 let filterBtn = document.querySelector(".filter-btn");
-let fullRecipeInfo = document.querySelector(".recipe-instructions");
+// let fullRecipeInfo = document.querySelector(".recipe-instructions");
 let main = document.querySelector("main");
 let pantryBtn = document.querySelector(".my-pantry-btn");
 let savedRecipesBtn = document.querySelector(".saved-recipes-btn");
@@ -402,47 +403,93 @@ function createRecipeObject(recipes) {
 
 
 
-// CREATE RECIPE INSTRUCTIONS - move to domUpdates
-function openRecipeInfo(event) {
-  fullRecipeInfo.style.display = "inline";
-  let recipeId = event.path.find(e => e.id).id;
-  let recipe = recipeData.find(recipe => recipe.id === Number(recipeId));
-  generateRecipeTitle(recipe, generateIngredients(recipe));
-  addRecipeImage(recipe);
-  generateInstructions(recipe);
-  fullRecipeInfo.insertAdjacentHTML("beforebegin", "<section id='overlay'></div>");
-}
-// move to domUpdates
-function generateRecipeTitle(recipe, ingredients) {
-  let recipeTitle = `
-    <button id="exit-recipe-btn">X</button>
-    <h4 id="recipe-title">${recipe.name}</h4>
-    <h3>Ingredients</h3>
-    <p>${ingredients}</p>`
-  fullRecipeInfo.insertAdjacentHTML("beforeend", recipeTitle);
+// CREATE RECIPE INSTRUCTIONS 
+function displayRecipeInfo(recipeID) {
+  const currentRecipe = findRecipe(recipeID);
+  const ingredients = findIngredients(recipeID);
+  const instructions = findInstructions(recipeID)
+
+  domUpdates.renderRecipeTitle(currentRecipe, ingredients);
+  domUpdates.renderRecipeIngredients(ingredients);
+  domUpdates.renderRecipeInstructions(instructions);
 }
 
+function findRecipeInfo(id) {
+  // if event.target === id
+  // ?????
+}
+
+function findRecipe(id) {
+  const recipe = recipeData.find(recipe => recipe.id === id)
+  const currentRecipe = new Recipe(recipe);
+  return currentRecipe;
+}
+
+function findIngredients(id) {
+  const listedIngredients = [];
+  const getListedIngredients = recipe.ingredients.map(ingredient => {
+    ingredients.forEach(listItem => {
+      if (listItem.id === ingredient.id) {
+        listedIngredients.push(listItem.name)
+      }
+    })
+  })
+  return listedIngredients;
+}
+
+
+function findInstructions(id) {
+  return recipe.retrieveInstructions();
+}
+
+
+
+// -move to domUpdates
+function openRecipeInfo(event) {
+  // fullRecipeInfo.style.display = "inline";
+  // let recipeId = event.path.find(e => e.id).id;
+  // let recipe = recipeData.find(recipe => recipe.id === Number(recipeId));
+  // generateRecipeTitle(recipe, generateIngredients(recipe));
+  addRecipeImage(recipe);
+  // generateInstructions(recipe);
+  // fullRecipeInfo.insertAdjacentHTML("beforebegin", "<section id='overlay'></div>");
+}
+
+// move to domUpdates
+// function generateRecipeTitle(recipe, ingredients) {
+//   let recipeTitle = `
+//     <button id="exit-recipe-btn">X</button>
+//     <h4 id="recipe-title">${recipe.name}</h4>
+//     <h3>Ingredients</h3>
+//     <p>${ingredients}</p>`
+//   fullRecipeInfo.insertAdjacentHTML("beforeend", recipeTitle);
+// }
+
+
+// recipe-title ID does NOT exist
 function addRecipeImage(recipe) {
   document.getElementById("recipe-title").style.backgroundImage = `url(${recipe.image})`;
 }
 
-function generateIngredients(recipe) {
-  return recipe && recipe.ingredients.map(i => {
-    return `${capitalize(i.name)} (${i.quantity.amount} ${i.quantity.unit})`
-  }).join(", ");
-}
+// function generateIngredients(recipe) {
+//   return recipe && recipe.ingredients.map(i => {
+//     return `${capitalize(i.name)} (${i.quantity.amount} ${i.quantity.unit})`
+//   }).join(", ");
+// }
+
+
 // move to domUpdates
-function generateInstructions(recipe) {
-  let instructionsList = "";
-  let instructions = recipe.instructions.map(i => {
-    return i.instruction
-  });
-  instructions.forEach(i => {
-    instructionsList += `<li>${i}</li>`
-  });
-  fullRecipeInfo.insertAdjacentHTML("beforeend", "<h4>Instructions</h4>");
-  fullRecipeInfo.insertAdjacentHTML("beforeend", `<ol>${instructionsList}</ol>`);
-}
+// function generateInstructions(recipe) {
+//   let instructionsList = "";
+//   let instructions = recipe.instructions.map(i => {
+//     return i.instruction
+//   });
+//   instructions.forEach(i => {
+//     instructionsList += `<li>${i}</li>`
+//   });
+//   fullRecipeInfo.insertAdjacentHTML("beforeend", "<h4>Instructions</h4>");
+//   fullRecipeInfo.insertAdjacentHTML("beforeend", `<ol>${instructionsList}</ol>`);
+// }
 
 function exitRecipe() {
   while (fullRecipeInfo.firstChild &&

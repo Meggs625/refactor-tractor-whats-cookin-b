@@ -36,7 +36,7 @@ let searchBtn = document.querySelector(".search-btn");
 let searchForm = document.querySelector("#search");
 let searchInput = document.querySelector("#search-input");
 let showPantryRecipes = document.querySelector(".show-pantry-recipes-btn");
-let tagList = document.querySelector(".tag-list");
+// let tagList = document.querySelector(".tag-list");
 
 //global variables (fit in functions?)
 // let pantryInfo = [];
@@ -76,9 +76,9 @@ function gatherData() {
   Promise.all([getData('users'), getData('ingredients'),
     getData('recipes')])
     .then(data => {
-      generateUserData(data[0].usersData);
-      generateIngredientData(data[1].ingredientsData);
-      generateRecipeData(data[2].recipeData);
+      generateUserData(data[0]);
+      generateIngredientData(data[1]);
+      generateRecipeData(data[2]);
       // const allUsers = data[0].usersData;
       // const allIngredients = data[1].ingredientsData;
       // const allRecipes = data[2].recipeData;
@@ -101,7 +101,7 @@ function generateIngredientData(data) {
 function generateRecipeData(data) {
   recipeRepo = new RecipeRepository(data);
   createCards(recipeRepo.recipes);
-  listTags(recipeRepo.findRecipeTags())
+  domUpdates.renderTags(recipeRepo.findRecipeTags())
 
   // console.log(recipeRepo.findRecipeTags());
   // console.log('recipe func: ', recipeRepo);
@@ -164,26 +164,27 @@ function createCards(recipeData) {
     if (recipeInfo.name.length > 40) {
       shortRecipeName = recipeInfo.name.substring(0, 40) + "...";
     }
-    addToDom(recipeInfo, shortRecipeName)
+    // addToDom(recipeInfo, shortRecipeName)
+    domUpdates.renderRecipeCard(recipeInfo, shortRecipeName)
   });
 }
 
 // Move to dom file
-function addToDom(recipeInfo, shortRecipeName) {
-  let cardHtml = `
-    <div class="recipe-card" id=${recipeInfo.id}>
-      <h4 maxlength="40">${shortRecipeName}</h4>
-      <div class="card-photo-container">
-        <img src=${recipeInfo.image} class="card-photo-preview" title="${recipeInfo.name} recipe">
-        <div class="text">
-          <div>Click for Instructions</div>
-        </div>
-      </div>
-      <h4>${recipeInfo.tags[0]}</h4>
-      <img src="./images/apple-logo-outline.png" class="card-apple-icon">
-    </div>`
-  main.insertAdjacentHTML("beforeend", cardHtml);
-}
+// function addToDom(recipeInfo, shortRecipeName) {
+//   let cardHtml = `
+//     <div class="recipe-card" id=${recipeInfo.id}>
+//       <h4 maxlength="40">${shortRecipeName}</h4>
+//       <div class="card-photo-container">
+//         <img src=${recipeInfo.image} class="card-photo-preview" title="${recipeInfo.name} recipe">
+//         <div class="text">
+//           <div>Click for Instructions</div>
+//         </div>
+//       </div>
+//       <h4>${recipeInfo.tags[0]}</h4>
+//       <img src="./images/apple-logo-outline.png" class="card-apple-icon">
+//     </div>`
+//   main.insertAdjacentHTML("beforeend", cardHtml);
+// }
 
 // FILTER BY RECIPE TAGS - MOVE TO RecipeRepository.js
 // *** This was moved to RecipeRepo as method .findTags() that returns the sorted list of tags
@@ -202,19 +203,19 @@ function addToDom(recipeInfo, shortRecipeName) {
 // }
 
 // move to domUpdate
-function listTags(allTags) {
-  allTags.forEach(tag => {
-    let tagHtml = `<li><input type="checkbox" class="checked-tag" id="${tag}">${tag}</li>`;
-    tagList.insertAdjacentHTML("beforeend", tagHtml);
-  });
-}
+// function listTags(allTags) {
+//   allTags.forEach(tag => {
+//     let tagHtml = `<li><input type="checkbox" class="checked-tag" id="${tag}">${tag}</li>`;
+//     tagList.insertAdjacentHTML("beforeend", tagHtml);
+//   });
+// }
 
 // Just for ingredients? need to be own seperate function?
-function capitalize(words) {
-  return words.split(" ").map(word => {
-    return word.charAt(0).toUpperCase() + word.slice(1);
-  }).join(" ");
-}
+// function capitalize(words) {
+//   return words.split(" ").map(word => {
+//     return word.charAt(0).toUpperCase() + word.slice(1);
+//   }).join(" ");
+// }
 
 
 // FILTER TAGGED RECIPES

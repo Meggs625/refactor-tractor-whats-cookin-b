@@ -566,7 +566,13 @@ function showWelcomeBanner() {
 
 // THis function replaces the toggleMenu below --- which was moved to the DOM file
 function displayPantryMenu() {
-  domUpdates.renderToggleMenu(menuOpen);
+  var menuDropdown = document.querySelector(".drop-menu");
+  menuOpen = !menuOpen;
+  if (menuOpen) {
+    menuDropdown.style.display = "block";
+  } else {
+    menuDropdown.style.display = "none";
+  }
 }
 
 //**Moved to domUpdates

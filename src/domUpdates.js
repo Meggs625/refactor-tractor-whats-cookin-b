@@ -64,15 +64,7 @@ const domUpdates = {
 
 
 
-  renderToggleMenu(menuOpen) {
-    var menuDropdown = document.querySelector(".drop-menu");
-    menuOpen = !menuOpen;
-    if (menuOpen) {
-      menuDropdown.style.display = "block";
-    } else {
-      menuDropdown.style.display = "none";
-    }
-  },
+
 
   renderAllRecipes(recipes) {
     recipes.forEach(recipe => {

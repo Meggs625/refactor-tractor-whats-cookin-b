@@ -14,6 +14,13 @@ import User from './user';
 import Recipe from './recipe';
 import RecipeRepository from './RecipeRepository';
 
+//import image
+import './images/apple-logo-outline.png'
+import './images/apple-logo.png'
+import './images/search.png'
+import './images/cookbook.png'
+import './images/seasoning.png'
+
 // query selectors (move to domUpdates)
 let allRecipesBtn = document.querySelector(".show-all-btn");
 let filterBtn = document.querySelector(".filter-btn");
@@ -282,7 +289,7 @@ function addToMyRecipes(event) {
       event.target.src = "../images/apple-logo.png";
       user.favoriteRecipe(cardId);
     } else {
-      event.target.src = "../image-logo-es/apploutline.png";
+      event.target.src = "../images/apple-logo-outline.png";
       user.removeFavoriteRecipe(cardId);
     }
   } else if (event.target.id === "exit-recipe-btn") {

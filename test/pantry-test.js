@@ -5,7 +5,7 @@ import sampleRecipeData from '../src/data/recipe-test-data';
 import sampleIngredientData from '../src/data/ingredient-test-data'
 
 
-describe.only('Pantry', () => {
+describe('Pantry', () => {
   let userPantry;
 
   beforeEach(() => {

@@ -427,7 +427,7 @@ function displayRecipeInfo(recipeID) {
   domUpdates.renderRecipeIngredients(listedIngredients);
   domUpdates.renderRecipeInstructions(instructions);
 
-  exitRecipe();
+  // exitRecipe();
 }
 
 function findRecipe(id) {
@@ -508,7 +508,7 @@ function findInstructions(recipe) {
 // }
 
 function exitRecipe() {
-  // const fullRecipeInfo = document.querySelector(".recipe-instructions")
+  const fullRecipeInfo = document.querySelector(".recipe-instructions")
   // const exitBtn = document.getElementById('exit-recipe-btn')
   // if (exitBtn.onclick) {
   //   fullRecipeInfo.removeChild(fullRecipeInfo.firstChild);
@@ -517,6 +517,7 @@ function exitRecipe() {
   while (fullRecipeInfo.firstChild &&
     fullRecipeInfo.removeChild(fullRecipeInfo.firstChild));
   fullRecipeInfo.style.display = "none";
+  document.getElementById("overlay").remove();
 }
 
 // TOGGLE DISPLAYS - show/hide (show/hide hidden class)

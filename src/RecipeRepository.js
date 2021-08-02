@@ -32,7 +32,6 @@ class RecipeRepository {
    return filteredTagResults;
   }
 
-  //might need to add functionality to lowercase all names/search material
   filterSearchRecipes (searchWords) {
     let filteredSearchResults = [];
     searchWords.forEach(word => {

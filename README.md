@@ -22,7 +22,7 @@ This project is enforcing the practices of refactoring a project in a codebase t
 
 
 #### Original website
-![original website](https://user-images.githubusercontent.com/78767067/127924882-cbd53882-b7ce-4778-bfe9-d05c9df899ab.png)
+![Screen Shot 2021-08-02 at 3 15 32 PM](https://user-images.githubusercontent.com/78767067/127924882-cbd53882-b7ce-4778-bfe9-d05c9df899ab.png)
 
 
 ## Install + Setup

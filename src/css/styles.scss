@@ -262,6 +262,11 @@ main {
   width: 250px;
 }
 
+.recipe-name {
+  color: #324A1C;
+  background-color: $text-background;
+}
+
 .recipe-card:hover .card-photo-preview {
   opacity: 50%;
   transition: .8s ease;
@@ -283,6 +288,7 @@ main {
   cursor: pointer;
   float: right;
   height: 50px;
+  padding-top: 10px;
   padding-bottom: 10px;
   width: 45px;
 }

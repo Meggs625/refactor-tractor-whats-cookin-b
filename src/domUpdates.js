@@ -48,7 +48,7 @@ const domUpdates = {
     fullRecipeInfo.insertAdjacentHTML("beforeend", recipeTitle);
   },
 
-  renderRecipeInstructions(bloop) {
+  renderRecipeInstructions() {
     let fullRecipeInfo = document.querySelector(".recipe-instructions")
 
     fullRecipeInfo.insertAdjacentHTML("beforeend", "<h4>Instructions</h4>");

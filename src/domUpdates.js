@@ -9,6 +9,7 @@ const domUpdates = {
 renderRecipeCard(recipeInfo, shortRecipeName) {
   let main = document.querySelector("main");
   let cardHtml = `
+
     <div class="recipe-card" id=${recipeInfo.id}>
       <h4>${shortRecipeName}</h4>
       <div class="card-photo-container">
@@ -18,19 +19,23 @@ renderRecipeCard(recipeInfo, shortRecipeName) {
         </div>
       </div>
       <h4>${recipeInfo.tags[0]}</h4>
-      <img src="./images/apple-logo-outline.png" class="card-apple-icon">
+      <img src="./images/apple-logo-outline.png" class="card-apple-icon" alt="apple outline icon">
     </div>`
     main.insertAdjacentHTML("beforeend", cardHtml);
-},
+  },
 
-// LIST TAGS
-renderTags(allTags) {
-  let tagList = document.querySelector(".tag-list");
-  allTags.forEach(tag => {
-    let tagHtml = `<li><input type="checkbox" class="checked-tag" id="${tag}">${tag}</li>`;
-    tagList.insertAdjacentHTML("beforeend", tagHtml);
-  });
-},
+  // LIST TAGS
+  renderTags(allTags) {
+    let tagList = document.querySelector(".tag-list");
+    allTags.forEach(tag => {
+      let tagHtml = 
+      `<li>
+      <input type="checkbox" name="${tag}" class="checked-tag" id="${tag}">
+      <label for="${tag}">${tag}</label>
+      </li>`;
+      tagList.insertAdjacentHTML("beforeend", tagHtml);
+    });
+  },
   
 
   // CREATE RECIPE INSTRUCTIONS
@@ -113,7 +118,11 @@ renderTags(allTags) {
   renderPantryInfo(pantry) {
     pantry.forEach(ingredient => {
       //updated id="${ingredient.name} to ${ingredient.id}"
-      let ingredientHtml = `<li><input type="checkbox" class="pantry-checkbox" id="${ingredient.id}">${ingredient.name}</li>`;
+      let ingredientHtml = 
+      `<li>
+      <input type="checkbox" name="${ingredient.name}"class="pantry-checkbox" id="${ingredient.id}">
+      <label for="${ingredient.name}">${ingredient.name}</label>
+      </li>`;
       document.querySelector(".pantry-list").insertAdjacentHTML("beforeend",
         ingredientHtml);
     });

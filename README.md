@@ -3,7 +3,7 @@ Mod 2 FE Refactoring Project
 
 
 ## Overview
-This project is enforcing the practices of refactoring a project in a codebase that the team members did not design and was unfamiliar to them. It covered aspects of converting network requests to remote APIs, utilizing a separate domUpdates files, ensuring best practices for user-accessibility, and incorporating webpack to streamline files. 
+This project encompasses the use good practices in refactoring a project in a codebase that the team members did not design and was unfamiliar to them. It covers aspects of converting network requests to remote APIs, utilizing a separate domUpdates files, ensuring best practices for user-accessibility, and incorporating webpack to streamline files. 
 
 ## Technologies
 - Javascript

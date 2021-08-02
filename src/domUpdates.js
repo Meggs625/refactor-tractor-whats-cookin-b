@@ -25,8 +25,8 @@ const domUpdates = {
   renderTags(allTags) {
     let tagList = document.querySelector(".tag-list");
     allTags.forEach(tag => {
-      let tagHtml = `
-      <li>
+      let tagHtml = 
+      `<li>
       <input type="checkbox" name="${tag}" class="checked-tag" id="${tag}">
       <label for="${tag}">${tag}</label>
       </li>`;
@@ -115,8 +115,8 @@ const domUpdates = {
   renderPantryInfo(pantry) {
     pantry.forEach(ingredient => {
       //updated id="${ingredient.name} to ${ingredient.id}"
-      let ingredientHtml = `
-      <li>
+      let ingredientHtml = 
+      `<li>
       <input type="checkbox" name="${ingredient.name}"class="pantry-checkbox" id="${ingredient.id}">
       <label for="${ingredient.name}">${ingredient.name}</label>
       </li>`;

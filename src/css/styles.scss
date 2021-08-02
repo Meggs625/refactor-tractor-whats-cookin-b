@@ -1,5 +1,12 @@
+$text-background: #E0F1B6;
+// was color: #C4EB67
+$main-background: #445B6F;
+
+
 body {
-  background-color: #5B7894;
+  background-color: #445B6F;
+  // background-color: #97ACBF;
+  // background-color: $main-background;
   display: grid;
   font-family: "Quicksand", sans-serif;
   grid-template-columns: 1fr 5fr;
@@ -24,12 +31,14 @@ h1 {
 }
 
 h2 {
-  color: #84C8A4;
+  color: #359567;
+  // color: #84C8A4;
   margin: 10px 0px 10px 0px;
 }
 
 h3 {
-  color: #359567;
+  color: white;
+  // color: #359567;
   cursor: pointer;
   height: 17%;
   margin: 5px 5px 10px 0px;
@@ -37,12 +46,15 @@ h3 {
 }
 
 h4 {
-  color: #359567;
-  background-color: #C4EB67;
+  color: #324A1C;
+  // color: #359567;
+  background-color: $text-background;
   border-radius: 3px;
   margin: 10px 0px 0px 0px;
   padding: 1px 4px 1px 4px;
-  width: max-content;
+  // width: max-content;
+  width: 96%;
+  word-wrap: break-word;
 }
 
 
@@ -56,7 +68,8 @@ header {
 }
 
 span {
-  color: #C4EB67;
+  color: #FFFFFF;
+  // color: $text-background;
   font-weight: 400;
 }
 
@@ -68,7 +81,7 @@ span {
 
 #search {
   border-radius: 15px 15px 15px 15px;
-  border: 3px outset #C4EB67;
+  border: 3px outset $text-background;
   box-shadow: 0px 0px 7px 0px #475d74;
   display: flex;
   flex-direction: row;
@@ -84,7 +97,7 @@ span {
   border-radius: 10px 0px 0px 10px;
   border: none;
   box-shadow: inset -3px -1px 20px 1px #5c7894;
-  color: #5B7894;
+  color: $main-background;
   font-family: "Quicksand", sans-serif;
   font-size: 42px;
   height: 100%;
@@ -105,7 +118,7 @@ span {
 }
 
 #search-input::placeholder {
-  color: #5B7894;
+  color: $main-background;
   font-size: 20px;
   text-align: right;
   text-shadow: none;
@@ -121,14 +134,15 @@ span {
 }
 
 .search-btn {
-  border-left: 3px outset #C4EB67;
+  border-left: 3px outset $text-background;
   border-radius: 0px 15px 15px 0px;
   padding: 1%;
 }
 
 .nav-btn {
+  color: white;
   align-items: center;
-  background: #5B7894 no-repeat;
+  background: $main-background no-repeat;
   border: none;
   cursor: pointer;
   display: flex;
@@ -145,7 +159,8 @@ span {
 }
 
 .nav-btn:hover {
-  color: #C4EB67;
+  color: white;
+  // color: $text-background;
   font-size: 14px;
   text-shadow: 0px 2px 4px black;
   transition: .4s ease;
@@ -158,7 +173,7 @@ span {
 }
 
 .saved-ingredients-btn {
-  border-left: 3px solid #C4EB67;
+  border-left: 3px solid $text-background;
 }
 
 .ing-pan-btn {
@@ -238,7 +253,7 @@ main {
 
 .recipe-card {
   background-color: white;
-  border: 2px solid #C4EB67;
+  border: 2px solid $text-background;
   border-radius: 7px;
   cursor: pointer;
   height: 270px;
@@ -260,7 +275,7 @@ main {
 }
 
 .recipe-card:hover h3 {
-  text-shadow: 0px 0px 4px #C4EB67;
+  text-shadow: 0px 0px 4px $text-background;
   transition: .8s ease;
 }
 
@@ -309,7 +324,8 @@ main {
 .show-pantry-recipes-btn,
 .show-all-btn,
 .filter-btn {
-  background-color: #359567;
+  background-color: #316024;
+  // background-color: #359567;
   border: 0;
   border-radius: 3px;
   color: white;
@@ -331,7 +347,9 @@ main {
 }
 
 .filter-btn:hover {
-  background-color: #84C8A4;
+  background-color: $text-background;
+  // background-color: #84C8A4;
+  color: #324A1C;
 }
 
 
@@ -366,7 +384,7 @@ main {
 /* RECIPE INSTRUCTIONS */
 .recipe-instructions {
   background: white;
-  border: 3px solid #C4EB67;
+  border: 3px solid $text-background;
   border-radius: 10px;
   box-shadow: 1px 1px 115px black;
   display: none;
@@ -395,7 +413,7 @@ main {
 }
 
 #exit-recipe-btn:hover {
-  background: #C4EB67;
+  background: $text-background;
   transition: .3s ease;
 }
 
@@ -426,7 +444,7 @@ main {
 
 #overlay {
   filter:alpha(opacity=50);
-  background-color: #5B7894;
+  background-color: $main-background;
   height:100%;
   left:0;
   opacity:0.5;

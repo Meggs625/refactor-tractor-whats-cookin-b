@@ -11,7 +11,7 @@ renderRecipeCard(recipeInfo, shortRecipeName) {
   let cardHtml = `
 
     <div class="recipe-card" id=${recipeInfo.id}>
-      <h4>${shortRecipeName}</h4>
+      <h3 class="recipe-name">${shortRecipeName}</h3>
       <div class="card-photo-container">
         <img src=${recipeInfo.image} class="card-photo-preview" title="${recipeInfo.name} recipe">
         <div class="text">

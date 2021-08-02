@@ -3,7 +3,7 @@ Mod 2 FE Refactoring Project
 
 
 ## Overview
-This project is enforcing the practices of refactoring a project in a codebase that the team members did not design and was unfamiliar to them. It covered aspects of converting network requests to remote APIs, utilizing a seperate domUpdates files, ensuring best practices for user-accessibility, and incorporating webpack to streamline files. 
+This project is enforcing the practices of refactoring a project in a codebase that the team members did not design and was unfamiliar to them. It covered aspects of converting network requests to remote APIs, utilizing a separate domUpdates files, ensuring best practices for user-accessibility, and incorporating webpack to streamline files. 
 
 ## Technologies
   - Javascript
@@ -17,13 +17,18 @@ This project is enforcing the practices of refactoring a project in a codebase t
 
 
 ## Illustrations
+#### Refactored Website
+[Refactored website](https://files.slack.com/files-pri/T029P2S9M-F02AN7VTE5N/recording__3_.gif)
 
-Use https://gifcap.dev/ to make GIFs
+
+#### Original website
+[original website](https://user-images.githubusercontent.com/78767067/127924882-cbd53882-b7ce-4778-bfe9-d05c9df899ab.png)
 
 
 ## Install + Setup
-	- Install instructions, how to access the website and how to use the website
-
+	- Clone the Repo and API database to your local machine
+  - Run 'npm install'
+  -Run 'npm start' to run the website
 
 
 ## Contributors
@@ -32,14 +37,16 @@ Use https://gifcap.dev/ to make GIFs
   - [Dave Leach](https://github.com/davidleach724)
 
 ## Wins
-	- What went well!
-	- Successes
+	- Each member has a sound understanding of the code that was written and refactored, a better understanding of APIs, as well as a clearer understanding of the purpose of webpack
+  - Improving the website Lighthouse score from 66 to 100
+  - Writing and passing tests for each Class file
 
 ## Challenges + Improvements
 	- Navigating through unfamiliar code and making sense of the original repository
 	- Dividing the work content throughout the team
-	- Future Iterations include the full functionality of connecting the newly written methods, resizing content on the recipe card, adding costs of materials and recipes to the recipe card, updating the user's quanitity of a particular panty ingredient, incorporate SASS and DRYing up the CSS file, and improving the HTML structure to increase WAVE accessibility. 
+	- Future Iterations include the full functionality of connecting the newly written methods, resizing content on the recipe card, adding costs of materials and recipes to the recipe card, updating the user's quantity of a particular panty ingredient, incorporate SASS and DRYing up the CSS file, and improving the HTML structure to increase WAVE accessibility. 
 
 
 ## Project Specs
-  - The project spec & rubric can be found [here](insert project spec sheet here)
+  - The project spec & rubric can be found [here](https://frontend.turing.edu/projects/module-2/refactor-tractor-choice.html)
+  - The original spec & rubric for the What's Cookin' project can be found [here](https://frontend.turing.edu/projects/whats-cookin.html)

@@ -18,7 +18,7 @@ This project is enforcing the practices of refactoring a project in a codebase t
 
 ## Illustrations
 #### Refactored Website
-![Refactored website]()
+![Refactored website](https://user-images.githubusercontent.com/81774070/127926778-c23564d0-ee27-4151-8a8b-572851bc80dc.mp4)
 
 
 #### Original website
@@ -37,7 +37,7 @@ This project is enforcing the practices of refactoring a project in a codebase t
   - [Dave Leach](https://github.com/davidleach724)
 
 ## Project Manager
-- [Hanna Hudson](https://github.com/hannahhch)
+- [Hannah Hudson](https://github.com/hannahhch)
 
 ## Wins
 - Each member has a sound understanding of the code that was written and refactored, a better understanding of APIs, as well as a clearer understanding of the purpose of webpack

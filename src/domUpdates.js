@@ -16,7 +16,7 @@ const domUpdates = {
         </div>
       </div>
       <h4>${recipeInfo.tags[0]}</h4>
-      <img src="./images/apple-logo-outline.png" class="card-apple-icon">
+      <img src="./images/apple-logo-outline.png" class="card-apple-icon" alt="apple outline icon">
     </div>`
     main.insertAdjacentHTML("beforeend", cardHtml);
   },

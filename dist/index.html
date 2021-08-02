@@ -10,24 +10,24 @@
 
 <body>
   <header>
-    <h3><span>fresh</span>Picks<img src="./images/apple-logo.png" class="header-apple-icon"></h3>
+    <h3><span>fresh</span>Picks<img src="./images/apple-logo.png" class="header-apple-icon" alt="green apple icon"></h3>
     <form id="search" role="search">
       <input id="search-input" type="text" autocomplete="off" placeholder="Search Recipes..."></input>
-      <button class="nav-btn search-btn" type="button"><img src="../images/search.png"></button>
+      <button aria-label="Search Recipe Button" class="nav-btn search-btn" type="button"><img src="../images/search.png" alt="magnifying glass icon"></button>
     </form>
-    <button class="nav-btn ing-pan-btn saved-recipes-btn" type="button"><img src="../images/cookbook.png">My Recipes</button>
-    <button class="nav-btn my-pantry-btn ing-pan-btn saved-ingredients-btn" type="button"><img
-        src="../images/seasoning.png">My Pantry</button>
+    <button aria-label="My Saved Recipes Button" class="nav-btn ing-pan-btn saved-recipes-btn" type="button"><img src="../images/cookbook.png" alt="cute cookbook icon">My Recipes</button>
+    <button aria-label="My Ingredients Button" class="nav-btn my-pantry-btn ing-pan-btn saved-ingredients-btn" type="button"><img
+        src="../images/seasoning.png" alt="some spicy ingredients icon">My Pantry</button>
   </header>
   <section class="banner-image">
     <div class="my-recipes-banner">
       <h1>My Recipes</h1>
-      <button class="show-all-btn">Show All Recipes</button>
+      <button aria-label="Show All Recipes Button" class="show-all-btn">Show All Recipes</button>
     </div>
   </section>
   <div class="drop-menu">
     <h1>My Pantry</h1>
-    <button class="show-pantry-recipes-btn">What Can I Make?</button>
+    <button aria-label="My Ingredients Button" class="show-pantry-recipes-btn">What Can I Make?</button>
     <ul class="pantry-list" role="list"></ul>
   </div>
   <aside>

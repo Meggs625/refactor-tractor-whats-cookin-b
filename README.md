@@ -1,19 +1,52 @@
-# Refactor Tractor (Whats Cookin Version B)
+# Refactor Tractor - What's Cookin' (B)
+Mod 2 FE Refactoring Project
 
-## Setup
 
-1. Within your group, decide on one person to have the project repository (repo) on their GitHub account. Then, that person should fork this repo - on the top right corner of this page, click the **Fork** button.
-1. Both memebers of the group should clone down the _forked_ repo. Since you don't want to name your project "refactor-tractor-whats-cookin-b", you can use an optional argument when you run git clone (you replace the [...] with the terminal command arguments): `git clone [remote-address] [what you want to name the repo]`
-1. Once you have cloned the repo, change into the directory and install the project dependencies. Run `npm install` to install project dependencies.
-1. Run `npm start` in the terminal to see the HTML page (you should see some boilerplate HTML displayed on the page) when you navigate to `http://localhost:8080/`
-1. Make sure both members of your team are collaborators on the forked repo.
+## Overview
+This project is enforcing the practices of refactoring a project in a codebase that the team members did not design and was unfamiliar to them. It covered aspects of converting network requests to remote APIs, utilizing a separate domUpdates files, ensuring best practices for user-accessibility, and incorporating webpack to streamline files. 
 
-## Testing
+## Technologies
+  - Javascript
+  - CSS/SCSS
+  - HTML5
+  - node
+  - VSCode
+	- WebPack
+	- API
+  - Testing Suites Mocha and Chai
 
-Testing is set up, but you will need to add more tests to it throughout your work flow. If you run `npm install`, you should see tests run. 
 
-## Linting Your Code
+## Illustrations
+#### Refactored Website
+[Refactored website](https://files.slack.com/files-pri/T029P2S9M-F02AN7VTE5N/recording__3_.gif)
 
-Run the command in your terminal `npm run lint` to run the linter on your JavaScript code. There will be errors and warnings right from the start in this starter kit, but that's ok - the linter is still running successfully.
 
-Your linter will look only at the JavaScript files you have within the `src` and the `test` directories.
+#### Original website
+[original website](https://user-images.githubusercontent.com/78767067/127924882-cbd53882-b7ce-4778-bfe9-d05c9df899ab.png)
+
+
+## Install + Setup
+	- Clone the Repo and API database to your local machine
+  - Run 'npm install'
+  -Run 'npm start' to run the website
+
+
+## Contributors
+  - [Meg McBride](https://github.com/Meggs625)
+  - [Maria DelSignore](https://github.com/madhaus4)
+  - [Dave Leach](https://github.com/davidleach724)
+
+## Wins
+	- Each member has a sound understanding of the code that was written and refactored, a better understanding of APIs, as well as a clearer understanding of the purpose of webpack
+  - Improving the website Lighthouse score from 66 to 100
+  - Writing and passing tests for each Class file
+
+## Challenges + Improvements
+	- Navigating through unfamiliar code and making sense of the original repository
+	- Dividing the work content throughout the team
+	- Future Iterations include the full functionality of connecting the newly written methods, resizing content on the recipe card, adding costs of materials and recipes to the recipe card, updating the user's quantity of a particular panty ingredient, incorporate SASS and DRYing up the CSS file, and improving the HTML structure to increase WAVE accessibility. 
+
+
+## Project Specs
+  - The project spec & rubric can be found [here](https://frontend.turing.edu/projects/module-2/refactor-tractor-choice.html)
+  - The original spec & rubric for the What's Cookin' project can be found [here](https://frontend.turing.edu/projects/whats-cookin.html)

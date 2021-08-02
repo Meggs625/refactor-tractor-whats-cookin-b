@@ -18,7 +18,15 @@ This project encompasses the use good practices in refactoring a project in a co
 
 ## Illustrations
 #### Refactored Website
-![Refactored website](https://user-images.githubusercontent.com/81774070/127926778-c23564d0-ee27-4151-8a8b-572851bc80dc.mp4)
+Favoriting a Recipe
+![favorite-a-recipe](https://user-images.githubusercontent.com/76507607/127928190-a852d42a-5e26-4f91-9497-86f288479b37.gif)
+
+Searching for a Recipe
+![search-recipes](https://user-images.githubusercontent.com/76507607/127928198-f60f458a-f58c-4f70-82f2-ab6ca934eb99.gif)
+
+Filtering recipes and using the Pantry
+![filter-and-use-pantry](https://user-images.githubusercontent.com/76507607/127928210-1b5821b6-3472-47c6-b486-e819d0e8ca51.gif)
+
 
 
 #### Original website

@@ -1,6 +1,3 @@
-// import ingredient data and Ingredient Class
-// let ingredientData = new Ingredient(ingredientDatabase);
-
 class Recipe {
   constructor(recipe) {
     this.id = recipe.id;
